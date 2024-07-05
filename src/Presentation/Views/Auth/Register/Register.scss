@@ -1,0 +1,32 @@
+@import "../../../../scss/index.scss";
+
+.container-register {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 15px;
+  justify-content: center;
+  width: 100%;
+}
+
+.container-left {
+  flex: 1;
+}
+
+.container-right {
+  flex: 1;
+}
+
+.option-rol {
+  padding: 10px;
+}
+
+.register-form-title {
+  font-size: 17px !important;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.register-form {
+  padding: 13px 10px;
+  background-color: #f9f9f9;
+}

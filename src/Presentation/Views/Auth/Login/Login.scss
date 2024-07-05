@@ -1,0 +1,63 @@
+@import "../../../../scss/index.scss";
+
+.auth {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $background-grey-light;
+
+  img {
+    width: 250px;
+  }
+
+  .container-form {
+    width: 90%;
+    background-color: $background-light;
+    padding: 20px 20px;
+    border: 1px solid $border-grey;
+    margin-top: 50px;
+    border-radius: 10px;
+
+    @media (max-width: 820px) {
+      width: 50%;
+    }
+  
+    @media (max-width: 480px) {
+      width: 100%; 
+      margin-top: 20px; 
+      padding: 10px 15px; 
+    }
+  }
+
+  .change-form {
+    width: 90%;
+    margin-top: 10px;
+    background-color: $background-light;
+    padding: 20px 50px;
+    border: 1px solid $border-grey;
+    text-align: center;
+    border-radius: 10px;
+
+    span {
+      color: $action;
+      font-weight: bold;
+      margin-left: 5px;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    @media (max-width: 820px) {
+      width: 50%;
+    }
+  
+    @media (max-width: 480px) {
+      width: 100%; 
+      margin-top: 20px; 
+      padding: 10px 15px; 
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@import '../../../../scss/index.scss';
+
+.modal-basic {
+    flex: 1;
+    display: 'flex' !important;
+    flex-direction: 'column' !important;
+    border-radius: 10px;
+}
+
+.modal-title {
+    padding: 10px !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 8px;
+}
+
+.modal-container {
+    flex-grow: 1;
+    
+    .modal-body { 
+        height: 80%;
+        padding: 0px;
+    }
+
+    .modal-button {
+        height: 20;
+    }
+}
+
+.cardStyle {
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-bottom: 20px;
+    border-color: #c3c3c3;
+    border: 1px solid #c3c3c3;
+    
+    .cardLeft {
+        flex: 1;
+        display: flex;
+    
+        .cardLeftTop {
+            margin-bottom: auto; /* Empuja el elemento hacia la parte superior */
+        }
+    }
+    
+    .cardRight {
+        padding: 40px;
+        width: 70%;
+        display: flex;
+        flex-direction: column; /* Alinear elementos verticalmente */
+        align-items: center; /* Centrar elementos horizontalmente */
+        background-color: white;
+
+        .SketchPicker {
+            align-self: center;
+        }
+    }
+    
+}

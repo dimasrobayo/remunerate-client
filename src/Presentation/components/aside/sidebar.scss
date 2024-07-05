@@ -1,0 +1,14 @@
+@import '../../../scss/index.scss';
+
+[class*="sidebar-master-"] {
+    .brand-link {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 10px !important;
+        text-align: -webkit-center;;
+        margin: 0 !important;
+    }
+    .sidebar a {
+        color: $font-light !important;
+    }
+}
