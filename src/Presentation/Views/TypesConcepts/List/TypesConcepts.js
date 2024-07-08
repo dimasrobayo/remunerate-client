@@ -2,15 +2,22 @@ import React from 'react';
 import { map, size } from 'lodash';
 import Title from '../../../components/Title/Title';
 import { Link } from 'react-router-dom';
-import { Icon, Table, Dropdown, Pagination } from 'semantic-ui-react';
+import { Icon, Table, Dropdown, Pagination, Input, Form, FormGroup, FormField } from 'semantic-ui-react';
 import useViewModel from './ViewModel';
 
 export default function TypesConcepts() {
-    const { typesConcepts, profile, currentPage, pageSize, setCurrentPage, deleteTypesConcepts } = useViewModel();
-    console.log(typesConcepts);
-    // Paginate the internal categories
-    const paginatedTypesConcepts = paginate(typesConcepts, pageSize, currentPage);
-    console.log(paginatedTypesConcepts);
+    const { 
+        profile, 
+        pageSize, 
+        currentPage, 
+        searchTerm, 
+        filteredTypesConcepts,
+        paginatedTypesConcepts,
+        setSearchTerm, 
+        setCurrentPage, 
+        deleteTypesConcepts 
+    } = useViewModel();
+
     return (
         <div className="content-wrapper">
             <div className="content-header">
@@ -47,6 +54,22 @@ export default function TypesConcepts() {
                                 </div>
 
                                 <div className="card-body">
+                                    {/* Barra de búsqueda */}
+                                    <div className="input-group mb-3" style={{"display": 'flex', "justify-content": 'flex-end'}}>
+                                        <Form>
+                                            <FormGroup widths='equal'>
+                                                <FormField
+                                                    id='search-input'
+                                                    control={Input}
+                                                    label='BUSQUEDAR CATEGORIA INTERNA'
+                                                    placeholder="BUSCAR..." 
+                                                    value={searchTerm}
+                                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                                />            
+                                            </FormGroup>
+                                        </Form>
+                                    </div>
+                                    
                                     <Table style={{'borderTop': `0.2em solid ${profile.myColor}`}}>
                                         <Table.Header>
                                             <Table.Row>
@@ -95,7 +118,7 @@ export default function TypesConcepts() {
                                     <Pagination
                                         activePage={currentPage}
                                         onPageChange={(e, { activePage }) => setCurrentPage(activePage)}
-                                        totalPages={Math.ceil(typesConcepts.length / pageSize)}
+                                        totalPages={Math.ceil(filteredTypesConcepts.length / pageSize)}
                                     />
                                 </div>
                             </div>
@@ -106,7 +129,3 @@ export default function TypesConcepts() {
         </div>
     )
 }
-
-const paginate = (array, pageSize, pageNumber) => {
-    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
-};

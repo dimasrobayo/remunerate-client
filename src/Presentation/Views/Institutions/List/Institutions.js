@@ -2,18 +2,24 @@ import React from 'react';
 import { map, size } from 'lodash';
 import Title from '../../../components/Title/Title';
 import { Link } from 'react-router-dom';
-import { Icon, Table, Dropdown } from 'semantic-ui-react';
+import { Icon, Table, Dropdown, Pagination, Input, Form, FormGroup, FormField } from 'semantic-ui-react';
 import useViewModel from './ViewModel';
 import './List.scss';
 
 export default function Institutions() {
     const { 
         profile, 
+        pageSize,
+        currentPage,
+        searchTerm,
+        institutionOptions,
+        selectedInstitution,
+        paginatedInstitutions,
+        filteredInstitutions,
+        setSearchTerm,
+        setCurrentPage,
         deleteInstitutions, 
         handleInstitutionChange, 
-        institutionOptions,
-        selectedInstitutions,
-        selectedInstitution
     } = useViewModel();
 
     return (
@@ -56,13 +62,26 @@ export default function Institutions() {
                                 </div>
 
                                 <div className="card-body">
-                                    <div className="session-search">
+                                    <div className="input-group mb-3" style={{"display": 'flex', "justify-content": 'flex-end'}}>
                                         <Dropdown
                                             placeholder='Seleccione una institución'
                                             selection
                                             options={institutionOptions}
                                             onChange={handleInstitutionChange}
+                                            style={{"margin-right": '10px', 'margin-bottom': '12px'}}
                                         />
+
+                                        <Form>
+                                            <FormGroup widths='equal'>
+                                                <FormField
+                                                    id='search-input'
+                                                    control={Input}
+                                                    placeholder="BUSCAR..." 
+                                                    value={searchTerm}
+                                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                                />            
+                                            </FormGroup>
+                                        </Form>
                                     </div>
 
                                     <Table style={{ 'borderTop': `0.2em solid ${profile.myColor}` }}>
@@ -77,10 +96,10 @@ export default function Institutions() {
                                         </Table.Header>
 
                                         <Table.Body>
-                                            {size(selectedInstitutions) > 0 ? (
-                                                selectedInstitutions.filter(institution => institution.deleted_at === null).length > 0 ? (
+                                            {size(paginatedInstitutions) > 0 ? (
+                                                paginatedInstitutions.filter(institution => institution.deleted_at === null).length > 0 ? (
                                                 map(
-                                                    selectedInstitutions.filter(institution => institution.deleted_at === null), 
+                                                    paginatedInstitutions.filter(institution => institution.deleted_at === null), 
                                                     (institution) => (
                                                         <Table.Row key={institution.id}>
                                                             <Table.Cell>{institution.id}</Table.Cell>
@@ -123,6 +142,12 @@ export default function Institutions() {
                                             )}
                                         </Table.Body>
                                     </Table>
+
+                                    <Pagination
+                                        activePage={currentPage}
+                                        onPageChange={(e, { activePage }) => setCurrentPage(activePage)}
+                                        totalPages={Math.ceil(filteredInstitutions.length / pageSize)}
+                                    />
                                 </div>
                             </div>
                         </div>

@@ -3,11 +3,15 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { allInstitutions, softDeleteInstitutions } from '../../../../Store/Slices/institutionsSlice';
 import { ApiRemunerate } from '../../../../Store/utils/ApiRemunerate';
+import { filter } from 'lodash';
 
 const useInstitutionsViewModel = () => {
     const dispatch = useDispatch();
-    const [institutions, setInstitutions] = useState({});
+    const [institutions, setInstitutions] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize] = useState(10);
     const profile = JSON.parse(localStorage.getItem(('my_profile')));
+    const [searchTerm, setSearchTerm] = useState(''); // Estado para almacenar el término de búsqueda
     const [selectedInstitution, setSelectedInstitution] = useState(null);
 
     useEffect(() => {
@@ -58,13 +62,38 @@ const useInstitutionsViewModel = () => {
         }
     }
 
+    // Función para filtrar las categorías internas según el término de búsqueda
+    const filteredInstitutions = filter(selectedInstitutions, institution => {
+        return institution.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    /**
+    * Función utilitaria para paginar un array.
+    * @param {Array} array - El array que se desea paginar.
+    * @param {number} pageSize - Tamaño de la página.
+    * @param {number} pageNumber - Número de la página actual.
+    * @returns {Array} - Subconjunto paginado del array original.
+    */
+    const paginate = (array, pageSize, pageNumber) => {
+        return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+    };
+
+    const paginatedInstitutions = paginate(filteredInstitutions, pageSize, currentPage);
+
     return {
         profile,
+        pageSize,
+        currentPage,
         institutionOptions,
+        selectedInstitution,
         selectedInstitutions,
+        paginatedInstitutions,
+        filteredInstitutions,
+        searchTerm,
+        setSearchTerm,
         deleteInstitutions,
-        handleInstitutionChange,
-        selectedInstitution
+        setCurrentPage,
+        handleInstitutionChange
     }
 }
 

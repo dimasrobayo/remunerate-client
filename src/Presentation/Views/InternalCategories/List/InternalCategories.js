@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
-import { map, size, filter } from 'lodash';
-import Title from '../../../components/Title/Title';
+import { map, size } from 'lodash';
 import { Link } from 'react-router-dom';
-import { Icon, Table, Dropdown, Pagination } from 'semantic-ui-react';
+import Title from '../../../components/Title/Title';
 import useInternalCategoriesViewModel from './ViewModel';
+import { Icon, Table, Dropdown, Pagination, FormField, Input, FormGroup, Form } from 'semantic-ui-react';
 
 /**
  * Componente funcional que muestra y gestiona las categorías internas con paginación.
  */
 export default function InternalCategories() {
     // Extraer datos y funciones del ViewModel personalizado
-    const { internalCategories, currentPage, pageSize, setCurrentPage, profile, deleteInternalCategories } = useInternalCategoriesViewModel();
-    const [searchTerm, setSearchTerm] = useState(''); // Estado para almacenar el término de búsqueda
-
-    // Función para filtrar las categorías internas según el término de búsqueda
-    const filteredInternalCategories = filter(internalCategories, category => {
-        return category.name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-
-    // Aplicar paginación a las categorías internas
-    const paginatedInternalCategories = paginate(filteredInternalCategories, pageSize, currentPage);
+    const { 
+        profile, 
+        pageSize, 
+        searchTerm, 
+        currentPage, 
+        filteredInternalCategories,
+        paginatedInternalCategories,
+        setSearchTerm,
+        setCurrentPage, 
+        deleteInternalCategories 
+    } = useInternalCategoriesViewModel();
 
     return (
         <div className="content-wrapper">
@@ -63,14 +64,19 @@ export default function InternalCategories() {
 
                                 <div className="card-body">
                                     {/* Barra de búsqueda */}
-                                    <div className="input-group mb-3">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Buscar..."
-                                            value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
-                                        />
+                                    <div className="input-group mb-3" style={{"display": 'flex', "justify-content": 'flex-end'}}>
+                                        <Form>
+                                            <FormGroup widths='equal'>
+                                                <FormField
+                                                    id='search-input'
+                                                    control={Input}
+                                                    label='BUSQUEDAR CATEGORIA INTERNA'
+                                                    placeholder="BUSCAR..." 
+                                                    value={searchTerm}
+                                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                                />            
+                                            </FormGroup>
+                                        </Form>
                                     </div>
                                     {/* Tabla de categorías internas */}
                                     <Table style={{'borderTop': `0.2em solid ${profile.myColor}`}}>

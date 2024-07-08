@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { filter } from 'lodash';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { allInternalCategories, softDeleteInternalCategories } from '../../../../Store/Slices/internalCategoriesSlice';
 import { ApiRemunerate } from '../../../../Store/utils/ApiRemunerate';
+import { allInternalCategories, softDeleteInternalCategories } from '../../../../Store/Slices/internalCategoriesSlice';
 
 /**
  * Hook personalizado que gestiona la lógica de negocio relacionada con las categorías internas.
@@ -13,6 +14,7 @@ const useInternalCategoriesViewModel = () => {
     const [internalCategories, setInternalCategories] = useState([]); // Estado local para almacenar las categorías internas
     const [currentPage, setCurrentPage] = useState(1); // Página actual de la paginación
     const [pageSize] = useState(10); // Número de elementos por página
+    const [searchTerm, setSearchTerm] = useState(''); // Estado para almacenar el término de búsqueda
     const profile = JSON.parse(localStorage.getItem(('my_profile'))); // Perfil de usuario almacenado localmente
 
     /**
@@ -60,12 +62,35 @@ const useInternalCategoriesViewModel = () => {
         });
     }
 
+    // Función para filtrar las categorías internas según el término de búsqueda
+    const filteredInternalCategories = filter(internalCategories, category => {
+        return category.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    /**
+    * Función utilitaria para paginar un array.
+    * @param {Array} array - El array que se desea paginar.
+    * @param {number} pageSize - Tamaño de la página.
+    * @param {number} pageNumber - Número de la página actual.
+    * @returns {Array} - Subconjunto paginado del array original.
+    */
+    const paginate = (array, pageSize, pageNumber) => {
+        return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+    };
+
+    // Aplicar paginación a las categorías internas
+    const paginatedInternalCategories = paginate(filteredInternalCategories, pageSize, currentPage);
+
     return {
-        internalCategories,
-        currentPage,
-        pageSize,
-        setCurrentPage,
         profile,
+        pageSize,
+        searchTerm, 
+        currentPage,
+        internalCategories,
+        filteredInternalCategories,
+        paginatedInternalCategories,
+        setSearchTerm,
+        setCurrentPage,
         deleteInternalCategories
     }
 }
