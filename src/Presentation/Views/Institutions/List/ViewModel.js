@@ -83,16 +83,16 @@ const useInstitutionsViewModel = () => {
     return {
         profile,
         pageSize,
+        searchTerm,
         currentPage,
         institutionOptions,
         selectedInstitution,
         selectedInstitutions,
-        paginatedInstitutions,
         filteredInstitutions,
-        searchTerm,
+        paginatedInstitutions,
         setSearchTerm,
-        deleteInstitutions,
         setCurrentPage,
+        deleteInstitutions,
         handleInstitutionChange
     }
 }

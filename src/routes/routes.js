@@ -18,6 +18,11 @@ import CreateTypesConcepts from '../Presentation/Views/TypesConcepts/create';
 import Institutions from '../Presentation/Views/Institutions/List';
 import CreateInstitutions from '../Presentation/Views/Institutions/create';
 
+//lists
+import Lists from '../Presentation/Views/Lists/List';
+import CreateList from '../Presentation/Views/Lists/create';
+
+
 import Home from '../Presentation/Views/Home';
 import Error404 from '../Presentation/Views/error404';
 
@@ -92,6 +97,24 @@ const routes = [
         path: "/institutions/update/:id",
         layout: LayoutBasic,
         component: CreateInstitutions,
+        exact: true,
+    },
+    {
+        path: "/Lists",
+        layout: LayoutBasic,
+        component: Lists,
+        exact: true,
+    },
+    {
+        path: "/lists/create",
+        layout: LayoutBasic,
+        component: CreateList,
+        exact: true,
+    },
+    {
+        path: "/lists/update/:id",
+        layout: LayoutBasic,
+        component: CreateList,
         exact: true,
     },
     {
