@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { map, size } from 'lodash';
 import { Link } from 'react-router-dom';
 import Title from '../../../components/Title/Title';
@@ -146,14 +146,3 @@ export default function InternalCategories() {
         </div>
     )
 }
-
-/**
- * Función utilitaria para paginar un array.
- * @param {Array} array - El array que se desea paginar.
- * @param {number} pageSize - Tamaño de la página.
- * @param {number} pageNumber - Número de la página actual.
- * @returns {Array} - Subconjunto paginado del array original.
- */
-const paginate = (array, pageSize, pageNumber) => {
-    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
-};

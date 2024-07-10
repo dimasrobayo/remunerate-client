@@ -24,7 +24,7 @@ import CreateList from '../Presentation/Views/Lists/create';
 
 //companies
 import Companies from '../Presentation/Views/Companies/List';
-
+import CreateCompany from '../Presentation/Views/Companies/Create';
 
 import Home from '../Presentation/Views/Home';
 import Error404 from '../Presentation/Views/error404';
@@ -124,6 +124,18 @@ const routes = [
         path: "/companies",
         layout: LayoutBasic,
         component: Companies,
+        exact: true,
+    },
+    {
+        path: "/companies/create",
+        layout: LayoutBasic,
+        component: CreateCompany,
+        exact: true,
+    },
+    {
+        path: "/companies/update/:id",
+        layout: LayoutBasic,
+        component: CreateCompany,
         exact: true,
     },
     {

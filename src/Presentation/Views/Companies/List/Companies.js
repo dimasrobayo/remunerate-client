@@ -27,9 +27,9 @@ export default function Companies() {
             <div className="content-header">
                 {/* Título del componente */}
                 <Title
-                    title='COMPAÑIAS'
+                    title='EMPRESAS'
                     component='HOME '
-                    position='/ COMPAÑIAS'
+                    position='/ EMPRESAS'
                     path='/'
                 />
             </div>
@@ -41,7 +41,7 @@ export default function Companies() {
                             <div className="card">
                                 <div className="card-header">
                                     {/* Encabezado de la tarjeta */}
-                                    <h3 className="card-title">Listado de Compañias</h3>
+                                    <h3 className="card-title">Listado de Empresas</h3>
                                     {/* Botones de acción */}
                                     <div className="btn-group option-general">
                                         {/* Botón para añadir nueva compania */}
@@ -70,7 +70,7 @@ export default function Companies() {
                                                 <FormField
                                                     id='search-input'
                                                     control={Input}
-                                                    label='BUSQUEDAR COMPAÑIAS'
+                                                    label='BUSQUEDA EMPRESA'
                                                     icon='search'
                                                     iconPosition='left'
                                                     placeholder="BUSCAR..." 
