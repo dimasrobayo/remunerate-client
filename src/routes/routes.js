@@ -22,6 +22,9 @@ import CreateInstitutions from '../Presentation/Views/Institutions/create';
 import Lists from '../Presentation/Views/Lists/List';
 import CreateList from '../Presentation/Views/Lists/create';
 
+//companies
+import Companies from '../Presentation/Views/Companies/List';
+
 
 import Home from '../Presentation/Views/Home';
 import Error404 from '../Presentation/Views/error404';
@@ -100,7 +103,7 @@ const routes = [
         exact: true,
     },
     {
-        path: "/Lists",
+        path: "/lists",
         layout: LayoutBasic,
         component: Lists,
         exact: true,
@@ -115,6 +118,12 @@ const routes = [
         path: "/lists/update/:id",
         layout: LayoutBasic,
         component: CreateList,
+        exact: true,
+    },
+    {
+        path: "/companies",
+        layout: LayoutBasic,
+        component: Companies,
         exact: true,
     },
     {

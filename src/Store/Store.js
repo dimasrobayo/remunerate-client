@@ -5,6 +5,8 @@ import internalCategoriesReducer from './Slices/internalCategoriesSlice';
 import typesConceptsReducer from './Slices/typesConceptsSlice';
 import institutionsReducer from './Slices/institutionsSlice';
 import listsReducer from './Slices/listsSlice';
+import companiesReducer from './Slices/companiesSlice';
+
 
 export default configureStore({
   reducer: {
@@ -14,5 +16,6 @@ export default configureStore({
     typesConcepts: typesConceptsReducer,
     institutions: institutionsReducer,
     lists: listsReducer,
-  }
+    companies: companiesReducer,
+  },
 })
