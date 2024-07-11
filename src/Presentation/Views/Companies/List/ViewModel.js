@@ -84,9 +84,9 @@ const useCompaniesViewModel = () => {
     return {
         profile,
         pageSize,
+        companies,
         searchTerm, 
         currentPage,
-        companies,
         filteredCompanies,
         paginatedCompanies,
         setSearchTerm,

@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import regionsReducer from './Slices/regionsSlice';
 import sessionReducer from './Slices/sessionSlice';
 import accountReducer from './Slices/accountUserSlice';
 import internalCategoriesReducer from './Slices/internalCategoriesSlice';
@@ -10,6 +11,7 @@ import companiesReducer from './Slices/companiesSlice';
 
 export default configureStore({
   reducer: {
+    regions: regionsReducer,
     session: sessionReducer,
     accountUser: accountReducer,
     internalCategories: internalCategoriesReducer,

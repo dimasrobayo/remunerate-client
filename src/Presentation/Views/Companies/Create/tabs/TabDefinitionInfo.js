@@ -5,8 +5,13 @@ import { Form, Grid, GridColumn, Segment, Label, Divider } from 'semantic-ui-rea
 
 export default function TabDefinitionInfo({ formik }) {
     const {
-        profile
+        profile,
+        getListCCAF,
+        getListMutual,
     } = useViewModel();
+    
+    const ccafOptions = Object.values(getListCCAF).map((option, index) => ({ key: option.value || index, ...option }));
+    const mutualOptions = Object.values(getListMutual).map((option, index) => ({ key: option.value || index, ...option }));
 
     return (
         <div className="card-body row">
@@ -128,25 +133,29 @@ export default function TabDefinitionInfo({ formik }) {
                             <Divider hidden />
 
                             <Form.Group widths='equal'>
-                                <Form.Input  
-                                    id="sys_institutions_id_ccaf"
+                                <Form.Select 
+                                    id="sys_institutions_id_ccaf" 
                                     name="sys_institutions_id_ccaf" 
-                                    label="CAJA DE COMPENSACION"
-                                    type="input" 
-                                    placeholder="INGRESAR CAJA DE COMPENSACION" 
+                                    label="CAJA DE COMPENSACION" 
+                                    placeholder="SELECCIONAR CCAF" 
+                                    options={ccafOptions} 
+                                    onChange={(e, { name, value }) => {
+                                        formik.setFieldValue(name, value);
+                                    }}
                                     value={formik.values.sys_institutions_id_ccaf}
-                                    onChange={formik.handleChange}
                                     error={formik.errors.sys_institutions_id_ccaf}
                                 />
 
-                                <Form.Input  
-                                    id="sys_institutions_id_mutual"
+                                <Form.Select 
+                                    id="sys_institutions_id_mutual" 
                                     name="sys_institutions_id_mutual" 
-                                    label="MUTUAL"
-                                    type="input" 
-                                    placeholder="INGRESAR MUTUAL" 
+                                    label="MUTUAL" 
+                                    placeholder="SELECCIONAR MUTUAL" 
+                                    options={mutualOptions} 
+                                    onChange={(e, { name, value }) => {
+                                        formik.setFieldValue(name, value);
+                                    }}
                                     value={formik.values.sys_institutions_id_mutual}
-                                    onChange={formik.handleChange}
                                     error={formik.errors.sys_institutions_id_mutual}
                                 />
                             </Form.Group>

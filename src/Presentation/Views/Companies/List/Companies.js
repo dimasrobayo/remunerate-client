@@ -64,7 +64,7 @@ export default function Companies() {
 
                                 <div className="card-body">
                                     {/* Barra de búsqueda */}
-                                    <div className="input-group mb-3" style={{"display": 'flex', "justify-content": 'flex-end'}}>
+                                    <div className="input-group mb-3" style={{"display": 'flex', "justifyContent": 'flex-end'}}>
                                         <Form>
                                             <FormGroup widths='equal'>
                                                 <FormField

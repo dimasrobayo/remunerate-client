@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useViewModel from '../ViewModel';
 import { Form, Grid, GridColumn, Segment, Label, Divider } from 'semantic-ui-react';
 
-export default function TabHealtInfo({ formik }) {
+export default function TabAddressInfo({ formik }) {
     const {
-        profile
+        profile,
+        getRegions,
+        getCommunes,
+        getAllCommunes
     } = useViewModel();
+
+    const regionOptions = Object.values(getRegions).map((option, index) => ({ key: option.value || index, ...option }));
+
+    useEffect(() => {
+        // Cargar las comunas para la región inicial
+        if (formik.values.community.province.region_id) {
+            getAllCommunes(formik.values.community.province.region_id);
+        }
+    }, [formik.values.community.province.region_id, getAllCommunes]);
 
     return (
         <div className="card-body row">
@@ -90,25 +102,28 @@ export default function TabHealtInfo({ formik }) {
                             </Form.Group>
 
                             <Form.Group widths='equal'>
-                                <Form.Input  
-                                    id="sys_region_id"
-                                    name="sys_region_id"
+                                <Form.Select 
+                                    id="sys_region_id" 
+                                    name="sys_region_id" 
                                     label="REGION" 
-                                    type="input" 
-                                    placeholder="INGRESAR REGION" 
-                                    value={formik.values.sys_region_id}
-                                    onChange={formik.handleChange}
+                                    placeholder="SELECCIONAR REGION" 
+                                    options={regionOptions} 
+                                    onChange={(e, { name, value }) => {
+                                        formik.setFieldValue(name, value);
+                                        getAllCommunes(value);
+                                    }}
+                                    value={formik.values.community.province.region_id}
                                     error={formik.errors.sys_region_id}
                                 />
-                            
-                                <Form.Input  
-                                    id="sys_community_id"
+
+                                <Form.Select 
+                                    id="sys_community_id" 
                                     name="sys_community_id" 
-                                    label="COMUNIDAD"
-                                    type="input" 
-                                    placeholder="INGRESAR COMUNIDAD" 
+                                    label="COMUNA"
+                                    placeholder="SELECCIONAR COMUNA" 
+                                    options={getCommunes.map((option, index) => ({ key: option.value || index, ...option }))} 
+                                    onChange={(e, { name, value }) => formik.setFieldValue(name, value)}
                                     value={formik.values.sys_community_id}
-                                    onChange={formik.handleChange}
                                     error={formik.errors.sys_community_id}
                                 />
                             </Form.Group>

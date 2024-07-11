@@ -62,7 +62,7 @@ export default function Institutions() {
                                 </div>
 
                                 <div className="card-body">
-                                    <div className="input-group mb-3" style={{"display": 'flex', "justify-content": 'flex-end'}}>
+                                    <div className="input-group mb-3" style={{"display": 'flex', "justifyContent": 'flex-end'}}>
                                         <Dropdown
                                             placeholder='Seleccione una institución'
                                             selection

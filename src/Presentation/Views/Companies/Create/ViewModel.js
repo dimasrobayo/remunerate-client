@@ -1,14 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as Yup from 'yup';
+import { size } from 'lodash';
 import { useFormik } from 'formik'
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { allRegions } from '../../../../Store/Slices/regionsSlice';
 import { ApiRemunerate } from '../../../../Store/utils/ApiRemunerate';
 
-const useTypeConceptViewModel = () => {
+const useCommpaniesViewModel = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams(); // Para obtener el ID de la URL
     const profile = JSON.parse(localStorage.getItem(('my_profile')));
+    const getRegions = useSelector(state => state.regions.allRegions);
+    const [getCommunes, setGetCommunes] = useState([]);
+    const [getListCCAF, setGetListCCAF] = useState([]);
+    const [getListMutual, setGetListMutual] = useState([]);
     const [initialValues, setInitialValues] = useState({ 
         sys_community_id: null,
         sys_institutions_id_ccaf: null,
@@ -36,7 +44,12 @@ const useTypeConceptViewModel = () => {
         use_cutoff_date_for_application_date: false,
         use_cutoff_date_for_disciplinary_events: false,
         vacation_days_remaining: '',
-        consider_proportional_vacation_days: false
+        consider_proportional_vacation_days: false,
+        community: {
+            province: {
+                region_id: null
+            }
+        }
     });
 
     useEffect(() => {
@@ -44,12 +57,25 @@ const useTypeConceptViewModel = () => {
             ApiRemunerate.get(`/companies/companybyid/${id}`)
                 .then(response => {
                     const { data } = response.data;
+
+                    // Llamada asíncrona a getListInstitutionsById y actualización de estados
+                    Promise.all([
+                        getListInstitutionsById(data.ccaf.sys_details_institutions_id),
+                        getListInstitutionsById(data.mutual.sys_details_institutions_id)
+                    ]).then(([ccafList, mutualList]) => {
+                        setGetListCCAF(ccafList);
+                        setGetListMutual(mutualList);
+                    });
+
                     setInitialValues({ 
                         sys_community_id:                           data.sys_community_id,
                         sys_institutions_id_ccaf:                   data.sys_institutions_id_ccaf,
                         sys_institutions_id_mutual:                 data.sys_institutions_id_mutual,
                         national_identifier:                        data.national_identifier,
                         business_name:                              data.business_name,
+                        ccaf:                                       data.ccaf,
+                        mutual:                                     data.mutual,
+                        community:                                  data.community || { province: { region_id: null } },
                         email_human_resources:                      data.email_human_resources,
                         legal_representative_name:                  data.legal_representative_name,
                         national_id_legal_representative:           data.national_id_legal_representative,
@@ -75,10 +101,88 @@ const useTypeConceptViewModel = () => {
                     });
                 })
                 .catch(error => {
-                    toast.error('Error al cargar los datos de los tipos de conceptos');
+                    if(error.response.status === 404){
+                        toast.error('EMPRESA no encontrada');
+                        navigate("/companies");
+                    }
                 });
+        }else{
+            // Llamada asíncrona a getListInstitutionsById y actualización de estados
+            Promise.all([
+                getListInstitutionsById(4),
+                getListInstitutionsById(5)
+            ]).then(([ccafList, mutualList]) => {
+                setGetListCCAF(ccafList);
+                setGetListMutual(mutualList);
+            });
         }
-    }, [id]);
+    }, [id, navigate]);
+
+    /**
+     * Efecto para cargar las regiones desde la API al cargar el componente.
+     */
+    useEffect(() => {
+        if (!getRegions || size(getRegions) === 0) {
+            ApiRemunerate.get(`/utils/regions`)
+            .then(response => {
+                const { data } = response.data;
+                if (data) {
+                    const regionsArray = data.map((region, index) => {
+                        return {
+                            key: region.id || index,
+                            value: region.id,
+                            text: region.region
+                        };
+                    });
+                    dispatch(allRegions(regionsArray));
+                }
+            });
+        }
+    }, [getRegions, dispatch]);
+
+    const getListInstitutionsById = async (id) => {
+        if (id) {
+            try {
+                const response = await ApiRemunerate.get(`/institutions/listinstitutionsbycondition/${id}`);
+                const { data } = response.data;
+                console.log(data);
+                if (data) {
+                    return data.map((institution) => ({
+                        key: institution.id,
+                        value: institution.id,
+                        text: institution.name
+                    }));
+                } else {
+                    return []; // Devolver un array vacío si no hay datos
+                }
+            } catch (error) {
+                console.error('Error fetching institutions:', error);
+                return []; // Manejar errores y devolver un array vacío
+            }
+        } else {
+            return []; // Devolver un array vacío si no hay ID válido
+        }
+    }
+
+    const getAllCommunes = useCallback((idRegion) => {
+        if(idRegion){
+            ApiRemunerate.get(`/utils/communityByRegions/${idRegion}`)
+            .then(response => {
+                const { data } = response.data;
+                if(data){
+                    setGetCommunes(
+                        data.map((commune) => {
+                            return {
+                                key: commune.id,
+                                value: commune.id,
+                                text: commune.comuna
+                            }
+                        })
+                    )
+                }
+            })
+        }
+    }, []);
 
     const validationSchema = Yup.object().shape({
         sys_community_id: Yup.number()
@@ -184,9 +288,14 @@ const useTypeConceptViewModel = () => {
     });
 
     return {
+        formik,
         profile,
-        formik
+        getRegions,
+        getCommunes,
+        getListCCAF,
+        getListMutual,
+        getAllCommunes
     }
 }
 
-export default useTypeConceptViewModel;
+export default useCommpaniesViewModel;

@@ -2,7 +2,7 @@ import React from 'react'
 import useViewModel from '../ViewModel';
 import { Form, Grid, GridColumn, Segment, Label, Divider } from 'semantic-ui-react';
 
-export default function TabSchoolerInfo({ formik }) {
+export default function TabSettingInfo({ formik }) {
     const {
         profile
     } = useViewModel();
