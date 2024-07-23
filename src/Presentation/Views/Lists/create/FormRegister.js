@@ -75,7 +75,7 @@ export default function FormRegister() {
                                         <Form.Input  
                                             id="value_a"
                                             name="value_a" 
-                                            type="number" 
+                                            type="input" 
                                             step="any"
                                             placeholder="INGRESAR VALOR A DE LA LISTA" 
                                             value={formik.values.value_a}
@@ -89,7 +89,7 @@ export default function FormRegister() {
                                         <Form.Input  
                                             id="value_b"
                                             name="value_b" 
-                                            type="number" 
+                                            type="input" 
                                             step="any"
                                             placeholder="INGRESAR VALOR B DE LA LISTA" 
                                             value={formik.values.value_b}
@@ -103,7 +103,7 @@ export default function FormRegister() {
                                         <Form.Input  
                                             id="value_c"
                                             name="value_c" 
-                                            type="number" 
+                                            type="input" 
                                             step="any"
                                             placeholder="INGRESAR VALOR C DE LA LISTA" 
                                             value={formik.values.value_c}

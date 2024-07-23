@@ -26,6 +26,18 @@ import CreateList from '../Presentation/Views/Lists/create';
 import Companies from '../Presentation/Views/Companies/List';
 import CreateCompany from '../Presentation/Views/Companies/Create';
 
+//remuneration book
+import RemunerationBook from '../Presentation/Views/RemunerationBook/RemunerationBookList';
+import CreateRemunerationBook from '../Presentation/Views/RemunerationBook/create';
+
+//concepts
+import Concepts from '../Presentation/Views/Concepts/ConceptsList';
+import CreateConcepts from '../Presentation/Views/Concepts/create';
+
+//employees
+import Employees from '../Presentation/Views/Employees/List';
+import CreateEmployees from '../Presentation/Views/Employees/Create';
+
 import Home from '../Presentation/Views/Home';
 import Error404 from '../Presentation/Views/error404';
 
@@ -136,6 +148,60 @@ const routes = [
         path: "/companies/update/:id",
         layout: LayoutBasic,
         component: CreateCompany,
+        exact: true,
+    },
+    {
+        path: "/remunerationbook",
+        layout: LayoutBasic,
+        component: RemunerationBook,
+        exact: true,
+    },
+    {
+        path: "/remunerationbook/create",
+        layout: LayoutBasic,
+        component: CreateRemunerationBook,
+        exact: true,
+    },
+    {
+        path: "/remunerationbook/update/:id",
+        layout: LayoutBasic,
+        component: CreateRemunerationBook,
+        exact: true,
+    },
+    {
+        path: "/concepts",
+        layout: LayoutBasic,
+        component: Concepts,
+        exact: true,
+    },
+    {
+        path: "/concepts/create",
+        layout: LayoutBasic,
+        component: CreateConcepts,
+        exact: true,
+    },
+    {
+        path: "/concepts/update/:id",
+        layout: LayoutBasic,
+        component: CreateConcepts,
+        exact: true,
+    },
+    {
+        path: "/employees",
+        layout: LayoutBasic,
+        component: Employees,
+        exact: true,
+    },
+    {
+        path: "/employees/create",
+        layout: LayoutBasic,
+        component: CreateEmployees,
+        exact: true,
+    },
+    {
+        path: "/employees/update/:id",
+        layout: LayoutBasic,
+        component: CreateEmployees,
         exact: true,
     },
     {

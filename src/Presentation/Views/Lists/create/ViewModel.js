@@ -13,9 +13,9 @@ const useCreateInstitucionViewModel = () => {
         sys_lists_id: '', 
         item: '', 
         name: '', 
-        value_a: '', 
-        value_b: '', 
-        value_c: '' 
+        value_a: '0', 
+        value_b: '0', 
+        value_c: '0' 
     });
     const [listsOptions, setListsOptions] = useState([]);
     const [selectedLists, setSelectedLists] = useState(null);
@@ -69,7 +69,6 @@ const useCreateInstitucionViewModel = () => {
         validationSchema: Yup.object({
             name: Yup.string()
                 .required("La NOMBRE es requerida!")
-                .min(3, 'El NOMBRE debe tener un minimo de 3 caracteres')
                 .max(45, 'El NOMBRE debe tener un maximo de 45 caracteres'),
         }),
         onSubmit: async (formData) => {

@@ -7,7 +7,7 @@ import typesConceptsReducer from './Slices/typesConceptsSlice';
 import institutionsReducer from './Slices/institutionsSlice';
 import listsReducer from './Slices/listsSlice';
 import companiesReducer from './Slices/companiesSlice';
-
+import remunerationBookReducer from './Slices/remunerationBookSlice';
 
 export default configureStore({
   reducer: {
@@ -19,5 +19,6 @@ export default configureStore({
     institutions: institutionsReducer,
     lists: listsReducer,
     companies: companiesReducer,
+    remunerationBook: remunerationBookReducer,
   },
 })

@@ -47,7 +47,7 @@ export default function Aside(){
           <Stadistics />
 
           <li className="nav-item">
-            <Link to="/teachers" className="nav-link">
+            <Link to="/employees" className="nav-link">
               <Icon className="far fa-id-badge" />
               <p>Colaboradores</p>
             </Link>
@@ -55,23 +55,8 @@ export default function Aside(){
 
           <li className="nav-item">
             <Link to="/enrollment" className="nav-link">
-              <Icon name='student' />
+              <Icon name='money bill alternate outline' />
               <p>Nominas</p>
-            </Link>
-          </li>
-
-          {/* SESSION THE CONVIVENCIA ESCOLAR */}
-          <li className="nav-item">
-            <Link to="/schoollife" className="nav-link">
-              <Icon name='users' />
-              <p>Convivencia Escolar</p>
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link to="/enrollment" className="nav-link">
-              <Icon name='student' />
-              <p>Talked</p>
             </Link>
           </li>
 
