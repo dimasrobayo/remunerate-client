@@ -25,6 +25,7 @@ const useEmployeesViewModel = () => {
     const [getISAPRE, setGetISAPRE] = useState([]);
     const [getPaymentMethods, setGetPaymentMethods] = useState([]);
     const [getBanks, setGetBanks] = useState([]);
+    const [getCompanies, setGetCompanies] = useState([]);
     const [initialValues, setInitialValues] = useState({ 
         name: '',
         lastname: '',
@@ -67,12 +68,13 @@ const useEmployeesViewModel = () => {
                 department_number: '',
                 housing_type: '',
                 block: '',
-                sys_community_id: null
+                sys_community_id: null,
+                sys_region_id: null,
             }
         ],
         healthPension: {
             sys_countries_id: null,
-            family_allowance_section: '',
+            family_allowance_section: 'tramo_d',
             retired: '',
             fun: '',
             quote_pension_health: '',
@@ -85,6 +87,7 @@ const useEmployeesViewModel = () => {
             pesos: 0
         },
         paymentMethod: {
+            sys_companies_id: null,
             payment_method: null,
             bank: null,
             current_account_number: '',
@@ -99,7 +102,6 @@ const useEmployeesViewModel = () => {
             ApiRemunerate.get(`/employees/${id}`)
                 .then(response => {
                     const { data } = response.data;
-                    console.log(data);
     
                     setInitialValues({
                         name: data.name || '',
@@ -142,7 +144,8 @@ const useEmployeesViewModel = () => {
                             department_number: addr.department_number || '',
                             housing_type: addr.housing_type || '',
                             block: addr.block || '',
-                            sys_community_id: addr.sys_community_id || ''
+                            sys_community_id: addr.sys_community_id || '',
+                            sys_region_id: addr.community.province.region_id || ''
                         })) || [],
                         healthPension: {
                             sys_countries_id: data.healthPension?.sys_countries_id || '',
@@ -159,6 +162,7 @@ const useEmployeesViewModel = () => {
                             pesos: parseInt(data.healthPension?.pesos, 10) || 0
                         },
                         paymentMethod: {
+                            sys_companies_id: data.paymentMethod?.sys_companies_id || '',
                             payment_method: data.paymentMethod?.payment_method || '',
                             bank: data.paymentMethod?.bank || '',
                             current_account_number: data.paymentMethod?.current_account_number || '',
@@ -495,6 +499,32 @@ const useEmployeesViewModel = () => {
         fetchBanks();
     }, [getBanks]);
 
+    /**
+     * Efecto para cargar COMPANIES desde la API al cargar el componente.
+     */
+    useEffect(() => {
+        const fetchCompanies = async () => {
+            try {
+                if (!getCompanies || size(getCompanies) === 0) {
+                    const response = await ApiRemunerate.get(`/companies`);
+                    const { data } = response.data;
+                    if (data) {
+                        const companiesArray = data.map((type, index) => ({
+                            key: type.id || index,
+                            value: type.id,
+                            text: type.business_name
+                        }));
+                        setGetCompanies(companiesArray);
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching companies:", error);
+                // Aquí puedes manejar el error como desees
+            }
+        };
+        fetchCompanies();
+    }, [getCompanies]);
+
     const validationSchema = Yup.object().shape({
         type_document: Yup.string().required("Tipo de documento es requerido"),
         document_number: Yup.string().required("Número de documento es requerido"),
@@ -526,6 +556,7 @@ const useEmployeesViewModel = () => {
             retired: Yup.string().required("Estado de retiro es requerido"),
         }),
         paymentMethod: Yup.object().shape({
+            sys_companies_id: Yup.number().required("La Empresa es requerida"),
             payment_method: Yup.number().required("Método de pago es requerido"),
             bank: Yup.number().required("Banco es requerido"),
             current_account_number: Yup.string().required("Número de cuenta corriente es requerido"),
@@ -539,6 +570,7 @@ const useEmployeesViewModel = () => {
         enableReinitialize: true, // Permite que el formulario se reinicie con los nuevos valores iniciales
         validationSchema,
         onSubmit: async (formData) => {
+            console.log(formData)
             try {
                 if (id) {
                     console.log(formData);
@@ -586,6 +618,7 @@ const useEmployeesViewModel = () => {
         getRegions,
         getCommunes,
         getRelation,
+        getCompanies,
         getCountries,
         getStudyLevel,
         driverLicense,

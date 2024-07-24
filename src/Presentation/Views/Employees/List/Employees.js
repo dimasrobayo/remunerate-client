@@ -104,7 +104,7 @@ export default function Employees() {
                                                         <Table.Cell>{employee.document_number}</Table.Cell>
                                                         <Table.Cell>ACTIVO</Table.Cell>
                                                         <Table.Cell>{employee.name + ' ' + employee.lastname + ' ' + employee.mother_lastname}</Table.Cell>
-                                                        <Table.Cell>por definir</Table.Cell>
+                                                        <Table.Cell>{employee.paymentMethod?.company?.business_name}</Table.Cell>
                                                         <Table.Cell>por definir</Table.Cell>
                                                         <Table.Cell>
                                                             {/* Menú desplegable de acciones */}

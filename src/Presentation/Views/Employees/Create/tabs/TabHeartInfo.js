@@ -37,15 +37,20 @@ export default function TabHeartInfo({ formik }) {
                                     onChange={(e, { value }) => formik.setFieldValue('healthPension.sys_countries_id', value)}
                                     error={formik.errors.healthPension?.sys_countries_id}
                                 />
-                            
-                                <Form.Input  
-                                    id="family_allowance_section"
+
+                                <Form.Select 
+                                    id="family_allowance_section" 
                                     name="healthPension.family_allowance_section" 
-                                    label="TRAMO ASIG. FAMILIAR*"
-                                    type="input" 
+                                    label="TRAMO ASIG. FAMILIAR*" 
                                     placeholder="INGRESAR TRAMO ASIG. FAMILIAR" 
+                                    options={[
+                                        { key: '1', value: 'tramo_a', text: 'Tramo A' },
+                                        { key: '2', value: 'tramo_b', text: 'Tramo B' },
+                                        { key: '3', value: 'tramo_c', text: 'Tramo C' },
+                                        { key: '4', value: 'tramo_d', text: 'Tramo D' }
+                                    ]} 
+                                    onChange={(e, { value }) => formik.setFieldValue('healthPension.family_allowance_section', value)}
                                     value={formik.values.healthPension.family_allowance_section}
-                                    onChange={formik.handleChange}
                                     error={formik.errors.healthPension?.family_allowance_section}
                                 />
                             

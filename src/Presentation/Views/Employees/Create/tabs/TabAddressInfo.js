@@ -14,12 +14,13 @@ export default function TabAddressInfo({ formik }) {
 
     useEffect(() => {
         // Cargar las comunas para la región inicial
-        /* if (formik.values.community.province.region_id) {
-            getAllCommunes(formik.values.community.province.region_id);
-        } */
-    }, []);
+        const regionId = formik.values.addressInformation?.[0]?.sys_region_id;
+        if (regionId) {
+            getAllCommunes(regionId);
+        }
+    }, [formik.values.addressInformation, getAllCommunes]);
 
-    const addressInfo = formik.values.addressInformation && formik.values.addressInformation[0] ? formik.values.addressInformation[0] : {};
+    const addressInfo = formik.values.addressInformation?.[0] || {};
 
     return (
         <div className="card-body row">
@@ -99,13 +100,16 @@ export default function TabAddressInfo({ formik }) {
                                 
                                 <Form.Select 
                                     id="sys_region_id" 
-                                    name="sys_region_id" 
+                                    name="addressInformation[0].sys_region_id" 
                                     label="REGION*" 
                                     placeholder="SELECCIONAR REGION" 
                                     options={regionOptions} 
                                     onChange={(e, { name, value }) => {
+                                        formik.setFieldValue(name, value)
                                         getAllCommunes(value);
                                     }}
+                                    value={addressInfo.sys_region_id || ''}
+                                    error={formik.errors.addressInformation?.[0]?.sys_region_id}
                                 />
 
                                 <Form.Select 

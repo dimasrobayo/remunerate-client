@@ -6,12 +6,15 @@ import { Form, Grid, GridColumn, Segment, Label, Divider } from 'semantic-ui-rea
 export default function TabPaymentMothodInfo({ formik }) {
     const {
         profile,
+        getBanks,
+        getCompanies,
         getPaymentMethods,
-        getBanks
     } = useViewModel();
+    console.log(formik.values);
     
     const banksOptions = Object.values(getBanks).map((option, index) => ({ key: option.value || index, ...option }));
     const paymmentMethodsOptions = Object.values(getPaymentMethods).map((option, index) => ({ key: option.value || index, ...option }));
+    const companiesOptions = Object.values(getCompanies).map((option, index) => ({ key: option.value || index, ...option }));
 
     return (
         <div className="card-body row">
@@ -24,6 +27,19 @@ export default function TabPaymentMothodInfo({ formik }) {
                             </Label>
 
                             <Divider hidden />
+
+                            <Form.Group>
+                                <Form.Select 
+                                    id="sys_companies_id" 
+                                    name="paymentMethod.sys_companies_id" 
+                                    label="Empresa*" 
+                                    placeholder="SELECCIONAR EMPRESA" 
+                                    options={companiesOptions} 
+                                    onChange={(e, { value }) => formik.setFieldValue('paymentMethod.sys_companies_id', value)}
+                                    value={ formik.values.paymentMethod.sys_companies_id }
+                                    error={ formik.errors.paymentMethod?.sys_companies_id }
+                                />
+                            </Form.Group>
 
                             <Form.Group widths='equal'>
                                 <Form.Select 
