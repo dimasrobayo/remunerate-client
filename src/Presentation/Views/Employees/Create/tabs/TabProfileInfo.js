@@ -55,6 +55,22 @@ export default function TabProfileInfo({ formik }) {
                                     onChange={formik.handleChange}
                                     error={formik.errors.document_number}
                                 />
+
+                                <Form.Select 
+                                    id="status" 
+                                    name="status" 
+                                    label="ESTADO DEL COLABORADOR*" 
+                                    placeholder="SELECCIONAR EL ESTADO" 
+                                    options={[
+                                        { key: 'A', value: 1, text: 'ACTIVO' },
+                                        { key: 'I', value: 2, text: 'INACTIVO' }
+                                    ]} 
+                                    onChange={(e, { name, value }) => {
+                                        formik.setFieldValue(name, value);
+                                    }}
+                                    value={formik.values.status}
+                                    error={formik.errors.status}
+                                />
                             </Form.Group>
 
                             <Form.Group widths='equal'>

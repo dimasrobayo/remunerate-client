@@ -35,6 +35,7 @@ const useEmployeesViewModel = () => {
         gender: '',
         phone: '',
         image: '',
+        status: 1,
         civilianInformation: {
             birthdate: '',
             country_birth: '',
@@ -102,7 +103,7 @@ const useEmployeesViewModel = () => {
             ApiRemunerate.get(`/employees/${id}`)
                 .then(response => {
                     const { data } = response.data;
-    
+
                     setInitialValues({
                         name: data.name || '',
                         lastname: data.lastname || '',
@@ -112,6 +113,7 @@ const useEmployeesViewModel = () => {
                         gender: data.gender || '',
                         phone: data.phone || '',
                         image: data.image || '',
+                        status: 2,
                         civilianInformation: {
                             birthdate: data.civilianInformation?.birthdate || '',
                             country_birth: data.civilianInformation?.country_birth || '',
@@ -528,6 +530,7 @@ const useEmployeesViewModel = () => {
     const validationSchema = Yup.object().shape({
         type_document: Yup.string().required("Tipo de documento es requerido"),
         document_number: Yup.string().required("Número de documento es requerido"),
+        status: Yup.string().required("El estado del colaborador es requerido"),
         name: Yup.string().required("Nombre es requerido"),
         lastname: Yup.string().required("Apellido es requerido"),
         gender: Yup.string().required("Género es requerido"),
@@ -570,10 +573,9 @@ const useEmployeesViewModel = () => {
         enableReinitialize: true, // Permite que el formulario se reinicie con los nuevos valores iniciales
         validationSchema,
         onSubmit: async (formData) => {
-            console.log(formData)
             try {
                 if (id) {
-                    console.log(formData);
+                    console.log(formData)
                     // Actualizar COMPANIAS existente
                     ApiRemunerate.put(`/employees/update/${id}`, {
                         ...formData,

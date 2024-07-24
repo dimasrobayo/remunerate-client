@@ -13,7 +13,6 @@ export default function Employees() {
     const { 
         profile,
         pageSize,
-        employees,
         searchTerm, 
         currentPage,
         filteredEmployees,
@@ -102,7 +101,7 @@ export default function Employees() {
                                                     <Table.Row key={employee.id}>
                                                         {/* Celdas de cada fila */}
                                                         <Table.Cell>{employee.document_number}</Table.Cell>
-                                                        <Table.Cell>ACTIVO</Table.Cell>
+                                                        <Table.Cell>{employee.status === 1 ? 'ACTIVO' : 'INACTIVO'}</Table.Cell>
                                                         <Table.Cell>{employee.name + ' ' + employee.lastname + ' ' + employee.mother_lastname}</Table.Cell>
                                                         <Table.Cell>{employee.paymentMethod?.company?.business_name}</Table.Cell>
                                                         <Table.Cell>por definir</Table.Cell>
