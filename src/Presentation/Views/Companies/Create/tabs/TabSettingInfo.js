@@ -73,9 +73,9 @@ export default function TabSettingInfo({ formik }) {
                                 <Form.Input  
                                     id="date_use_previred"
                                     name="date_use_previred" 
-                                    label="FECHA A USER PREVIRED"
+                                    label="FECHA A USAR PREVIRED"
                                     type="input" 
-                                    placeholder="INGRESAR FECHA A USER PREVIRED" 
+                                    placeholder="INGRESAR FECHA A USAR PREVIRED" 
                                     value={formik.values.date_use_previred}
                                     onChange={formik.handleChange}
                                     error={formik.errors.date_use_previred}

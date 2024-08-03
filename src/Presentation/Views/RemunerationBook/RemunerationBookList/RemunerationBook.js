@@ -97,7 +97,11 @@ export default function RemunerationBook() {
                                                     <Table.Row key={remunerationBook.id}>
                                                         {/* Celdas de cada fila */}
                                                         <Table.Cell>{remunerationBook.code}</Table.Cell>
-                                                        <Table.Cell>{remunerationBook.description}</Table.Cell>
+                                                        <Table.Cell>
+                                                            <Link to={{pathname:`/remunerationbook/update/${remunerationBook.id}`}}>
+                                                                {remunerationBook.description}
+                                                            </Link>
+                                                        </Table.Cell>
                                                         <Table.Cell>{remunerationBook.typeLRE.description}</Table.Cell>
                                                         <Table.Cell>
                                                             {/* Menú desplegable de acciones */}

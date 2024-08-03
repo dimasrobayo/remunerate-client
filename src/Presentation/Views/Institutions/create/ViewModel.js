@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { useFormik } from 'formik'
+import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
+import '../../../../utils/yupRutValidator';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ApiRemunerate } from '../../../../Store/utils/ApiRemunerate';
 
@@ -9,9 +10,16 @@ const useCreateInstitucionViewModel = () => {
     const navigate = useNavigate();
     const { id } = useParams(); // Para obtener el ID de la URL
     const profile = JSON.parse(localStorage.getItem(('my_profile')));
-    const [initialValues, setInitialValues] = useState({ sys_details_institutions_id: '', rut: '', name: '', value: '', aditional_data: '', equivalencia_previred: '' });
     const [institutionOptions, setInstitutionOptions] = useState([]);
     const [selectedInstitution, setSelectedInstitution] = useState(null);
+    const [initialValues, setInitialValues] = useState({ 
+        sys_details_institutions_id: '', 
+        rut: '', 
+        name: '', 
+        value: '', 
+        aditional_data: '', 
+        equivalencia_previred: '' 
+    });
     
     useEffect(() => {
         if (id) {
@@ -58,15 +66,24 @@ const useCreateInstitucionViewModel = () => {
         initialValues,
         enableReinitialize: true, // Permite que el formulario se reinicie con los nuevos valores iniciales
         validationSchema: Yup.object({
+            rut_institution: Yup.string()
+                .max(12, 'El RUT debe tener un máximo de 12 caracteres'),
             name: Yup.string()
                 .required("La NOMBRE es requerida!")
                 .min(3, 'El NOMBRE debe tener un minimo de 3 caracteres')
                 .max(45, 'El NOMBRE debe tener un maximo de 45 caracteres'),
+            value: Yup.number()
+                .required('El valor es requerido')
+                .typeError('El valor debe ser un número')
+                .positive('El valor debe ser positivo')
+                .min(0, 'El valor debe ser mayor o igual a 0')
+                .test('is-decimal', 'El valor debe tener como máximo 2 decimales', value => {
+                    return /^\d+(\.\d{1,2})?$/.test(value);
+                }),
         }),
         onSubmit: async (formData) => {
             try {
                 if (id) {
-                    console.log(formData)
                     // Actualizar Institucion existente
                     ApiRemunerate.put(`/institutions/update/${id}`, formData)
                         .then(response => {
@@ -77,7 +94,6 @@ const useCreateInstitucionViewModel = () => {
                             toast.error('Error al actualizar Institución');
                         });
                 } else {
-                    console.log(formData)
                     // Crear nueva Institucion
                     ApiRemunerate.post(`/institutions/create`, formData)
                     .then(response => {

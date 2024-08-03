@@ -36,7 +36,6 @@ const useCreateInternalCategoryViewModel = () => {
         onSubmit: async (formData) => {
             try {
                 if (id) {
-                    console.log(formData)
                     // Actualizar categoría interna existente
                     ApiRemunerate.put(`/internalcategories/update/${id}`, formData)
                         .then(response => {

@@ -104,7 +104,11 @@ export default function Institutions() {
                                                         <Table.Row key={institution.id}>
                                                             <Table.Cell>{institution.id}</Table.Cell>
                                                             <Table.Cell>{institution.rut_institution}</Table.Cell>
-                                                            <Table.Cell>{institution.name}</Table.Cell>
+                                                            <Table.Cell>
+                                                                <Link to={{pathname:`/institutions/update/${institution.id}`}}>
+                                                                    {institution.name}
+                                                                </Link>
+                                                            </Table.Cell>
                                                             <Table.Cell>{institution.value}</Table.Cell>
                                                             <Table.Cell>
                                                                 <Dropdown text='Acciones'>

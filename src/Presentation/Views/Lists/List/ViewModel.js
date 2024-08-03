@@ -12,7 +12,7 @@ const useListsViewModel = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState(''); // Estado para almacenar el término de búsqueda
     const profile = JSON.parse(localStorage.getItem(('my_profile')));
-    const [selectedList, setSelectedList] = useState(null);
+    const [selectedList, setSelectedList] = useState([]);
 
     useEffect(() => {
         const fetchLists = async () => {
@@ -39,7 +39,7 @@ const useListsViewModel = () => {
     })) : [];
 
     const selectedLists = selectedList
-        ? lists.find(list => list.id === selectedList)?.values || []
+        ? lists.find(list => list.id === selectedList)?.values || [] // Manejar `values` si es `undefined`
         : [];
 
     const deleteLists = async (event, id) => {
@@ -53,18 +53,23 @@ const useListsViewModel = () => {
             if(response.status === 200){
                 thisClick.closest('tr').remove();
                 toast.success('Registro eliminado con exito!');
+                
                 dispatch(softDeleteLists({id: id, deleted_at: deletedAt}));
+                
+                // Volver a cargar la lista de elementos
+                setSelectedList(null); // Opcional: Restablecer la selección
             }else{
                 toast.warning('Algo a salido mal, intente mas tarde!');
             }
         } catch (error) {
+            console.log(error)
             toast.warning(error.message);
         }
     }
 
     // Función para filtrar las categorías internas según el término de búsqueda
     const filteredLists = filter(selectedLists, list => {
-        return list.name.toLowerCase().includes(searchTerm.toLowerCase());
+        return list.name?.toLowerCase().includes(searchTerm.toLowerCase()); // Manejar caso donde `list.name` puede ser `undefined`
     });
 
     /**

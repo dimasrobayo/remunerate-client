@@ -102,9 +102,14 @@ export default function Employees() {
                                                         {/* Celdas de cada fila */}
                                                         <Table.Cell>{employee.document_number}</Table.Cell>
                                                         <Table.Cell>{employee.status === 1 ? 'ACTIVO' : 'INACTIVO'}</Table.Cell>
-                                                        <Table.Cell>{employee.name + ' ' + employee.lastname + ' ' + employee.mother_lastname}</Table.Cell>
+                                                        <Table.Cell>
+                                                            <Link to={{pathname:`/employees/update/${employee.id}`}}>
+                                                                {employee.name + ' ' + employee.lastname + ' ' + employee.mother_lastname}
+                                                            </Link>
+                                                        </Table.Cell>
                                                         <Table.Cell>{employee.paymentMethod?.company?.business_name}</Table.Cell>
-                                                        <Table.Cell>por definir</Table.Cell>
+                                                        <Table.Cell style={{ textAlign: 'center' }}>1</Table.Cell>
+
                                                         <Table.Cell>
                                                             {/* Menú desplegable de acciones */}
                                                             <Dropdown text='Acciones'>

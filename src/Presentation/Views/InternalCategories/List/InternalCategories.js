@@ -96,7 +96,11 @@ export default function InternalCategories() {
                                                     <Table.Row key={internalCategory.id}>
                                                         {/* Celdas de cada fila */}
                                                         <Table.Cell>{internalCategory.id}</Table.Cell>
-                                                        <Table.Cell>{internalCategory.name}</Table.Cell>
+                                                        <Table.Cell>
+                                                            <Link to={{pathname:`/internalcategories/update/${internalCategory.id}`}}>
+                                                                {internalCategory.name}
+                                                            </Link>
+                                                        </Table.Cell>
                                                         <Table.Cell>
                                                             {/* Menú desplegable de acciones */}
                                                             <Dropdown text='Acciones'>

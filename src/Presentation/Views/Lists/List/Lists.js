@@ -106,7 +106,11 @@ export default function Lists() {
                                                         <Table.Row key={list.id}>
                                                             <Table.Cell>{list.id}</Table.Cell>
                                                             <Table.Cell>{list.item}</Table.Cell>
-                                                            <Table.Cell>{list.name}</Table.Cell>
+                                                            <Table.Cell>
+                                                                <Link to={{pathname: `/lists/update/${list.id}`}}>
+                                                                    {list.name}
+                                                                </Link>
+                                                            </Table.Cell>
                                                             <Table.Cell>{list.value_a}</Table.Cell>
                                                             <Table.Cell>{list.value_b}</Table.Cell>
                                                             <Table.Cell>{list.value_c}</Table.Cell>

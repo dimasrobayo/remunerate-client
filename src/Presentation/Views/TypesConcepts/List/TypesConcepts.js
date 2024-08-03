@@ -84,7 +84,11 @@ export default function TypesConcepts() {
                                                 ? map(paginatedTypesConcepts, (typeConcept, index) => (
                                                     <Table.Row key={typeConcept.id}>
                                                         <Table.Cell>{typeConcept.id}</Table.Cell>
-                                                        <Table.Cell>{typeConcept.name}</Table.Cell>
+                                                        <Table.Cell>
+                                                            <Link to={{pathname:`/typesconcepts/update/${typeConcept.id}`}}>
+                                                                {typeConcept.name}
+                                                            </Link>
+                                                        </Table.Cell>
                                                         <Table.Cell>
                                                             <Dropdown text='Acciones'>
                                                                 <Dropdown.Menu>

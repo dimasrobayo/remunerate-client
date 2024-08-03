@@ -24,7 +24,7 @@ export default function CreateTypesConcepts() {
                                 <div className="card-header">
                                     <h3 className="card-title">{id ? 'Editar Tipo de Concepto' : 'Registrar Tipo de Concepto'}</h3>
                                     <div className="btn-group option-general">
-                                        <Link type="button" className="btn btn-secondary" to="/courses">
+                                        <Link type="button" className="btn btn-secondary" to="/typesconcepts">
                                             <i className="fas fa-window-close"></i>
                                         </Link>
                                     </div>

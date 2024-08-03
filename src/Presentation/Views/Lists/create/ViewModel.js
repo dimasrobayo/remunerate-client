@@ -10,12 +10,12 @@ const useCreateInstitucionViewModel = () => {
     const { id } = useParams(); // Para obtener el ID de la URL
     const profile = JSON.parse(localStorage.getItem(('my_profile')));
     const [initialValues, setInitialValues] = useState({ 
-        sys_lists_id: '', 
+        sys_lists_id: 0, 
         item: '', 
         name: '', 
-        value_a: '0', 
-        value_b: '0', 
-        value_c: '0' 
+        value_a: 0, 
+        value_b: 0, 
+        value_c: 0
     });
     const [listsOptions, setListsOptions] = useState([]);
     const [selectedLists, setSelectedLists] = useState(null);
@@ -25,7 +25,6 @@ const useCreateInstitucionViewModel = () => {
             ApiRemunerate.get(`/lists/listsbyid/${id}`)
                 .then(response => {
                     const { data } = response.data;
-                    console.log(data)
                     setInitialValues({ 
                         sys_lists_id: data.sys_lists_id,
                         item: data.item, 
@@ -63,17 +62,45 @@ const useCreateInstitucionViewModel = () => {
         formik.setFieldValue('sys_lists_id', value);
     };
 
+    // Define el esquema de validación
+    const validationSchema = Yup.object({
+        name: Yup.string()
+            .required("La NOMBRE es requerida!")
+            .max(100, 'El NOMBRE debe tener un máximo de 100 caracteres'),
+        value_a: Yup.number()
+            .required('El valor A es requerido')
+            .typeError('El valor A debe ser un número')
+            .positive('El valor A debe ser positivo')
+            .min(0, 'El valor A debe ser mayor o igual a 0')
+            .test('is-decimal', 'El valor A debe tener como máximo 2 decimales', value => {
+                return /^\d+(\.\d{1,2})?$/.test(value);
+            }),
+        value_b: Yup.number()
+            .required('El valor B es requerido')
+            .typeError('El valor B debe ser un número')
+            .positive('El valor B debe ser positivo')
+            .min(0, 'El valor B debe ser mayor o igual a 0')
+            .test('is-decimal', 'El valor B debe tener como máximo 2 decimales', value => {
+                return /^\d+(\.\d{1,2})?$/.test(value);
+            }),
+        value_c: Yup.number()
+            .required('El valor C es requerido')
+            .typeError('El valor C debe ser un número')
+            .positive('El valor C debe ser positivo')
+            .min(0, 'El valor C debe ser mayor o igual a 0')
+            .test('is-decimal', 'El valor C debe tener como máximo 2 decimales', value => {
+                return /^\d+(\.\d{1,2})?$/.test(value);
+            }),
+    });
+
     const formik = useFormik({
         initialValues,
         enableReinitialize: true, // Permite que el formulario se reinicie con los nuevos valores iniciales
-        validationSchema: Yup.object({
-            name: Yup.string()
-                .required("La NOMBRE es requerida!")
-                .max(45, 'El NOMBRE debe tener un maximo de 45 caracteres'),
-        }),
+        validationSchema,
         onSubmit: async (formData) => {
             try {
                 if (id) {
+                    console.log(formData)
                     // Actualizar Institucion existente
                     ApiRemunerate.put(`/lists/update/${id}`, formData)
                     .then(response => {
@@ -84,6 +111,7 @@ const useCreateInstitucionViewModel = () => {
                         toast.error('Error al actualizar Lista');
                     });
                 } else {
+                    console.log(formData)
                     // Crear nueva Institucion
                     ApiRemunerate.post(`/lists/create`, formData)
                     .then(response => {

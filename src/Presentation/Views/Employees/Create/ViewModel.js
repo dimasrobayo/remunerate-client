@@ -113,7 +113,7 @@ const useEmployeesViewModel = () => {
                         gender: data.gender || '',
                         phone: data.phone || '',
                         image: data.image || '',
-                        status: 2,
+                        status: data.status || 1,
                         civilianInformation: {
                             birthdate: data.civilianInformation?.birthdate || '',
                             country_birth: data.civilianInformation?.country_birth || '',

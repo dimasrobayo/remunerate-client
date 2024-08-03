@@ -103,7 +103,11 @@ export default function Companies() {
                                                     <Table.Row key={company.id}>
                                                         {/* Celdas de cada fila */}
                                                         <Table.Cell>{company.id}</Table.Cell>
-                                                        <Table.Cell>{company.business_name}</Table.Cell>
+                                                        <Table.Cell>
+                                                            <Link to={{pathname:`/companies/update/${company.id}`}}>
+                                                                {company.business_name}
+                                                            </Link>
+                                                        </Table.Cell>
                                                         <Table.Cell>{company.national_identifier}</Table.Cell>
                                                         <Table.Cell>{company.ccaf.name}</Table.Cell>
                                                         <Table.Cell>{company.mutual.name}</Table.Cell>

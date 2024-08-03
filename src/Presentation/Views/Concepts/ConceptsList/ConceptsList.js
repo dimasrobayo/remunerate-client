@@ -101,7 +101,11 @@ export default function ConceptsList() {
                                                     <Table.Row key={concepts.id}>
                                                         {/* Celdas de cada fila */}
                                                         <Table.Cell>{concepts.id}</Table.Cell>
-                                                        <Table.Cell>{concepts.name}</Table.Cell>
+                                                        <Table.Cell>
+                                                            <Link to={{pathname:`/concepts/update/${concepts.id}`}}>
+                                                                {concepts.name}
+                                                            </Link>
+                                                        </Table.Cell>
                                                         <Table.Cell>{concepts.typesConcept.name}</Table.Cell>
                                                         <Table.Cell>
                                                             {concepts.attributes.es_preconcepto === 1 ? 'SI' : 'NO'}

@@ -51,14 +51,22 @@ export default function FormRegister() {
 
                                     <div className="form-group">
                                         <label>VALOR</label>
-                                        <Form.Input  
+                                        <Form.Input
                                             id="value"
-                                            name="value" 
-                                            type="input" 
-                                            placeholder="INGRESAR VALOR DE LA INSTITUCIÓN" 
+                                            name="value"
+                                            type="number"
+                                            step="0.01" // Permite ingresar decimales
+                                            placeholder="INGRESAR VALOR DE LA INSTITUCIÓN"
                                             value={formik.values.value}
-                                            onChange={formik.handleChange}
-                                            error={formik.errors.value}
+                                            onChange={e => {
+                                                const value = e.target.value.replace(',', '.'); // Reemplaza coma por punto
+                                                formik.setFieldValue('value', value);
+                                            }}
+                                            onBlur={formik.handleBlur} // Asegúrate de manejar el evento onBlur para la validación
+                                            error={formik.touched.value && formik.errors.value ? {
+                                                content: formik.errors.value,
+                                                pointing: 'above',
+                                            } : null}
                                         />
                                     </div>
                                 </Segment>

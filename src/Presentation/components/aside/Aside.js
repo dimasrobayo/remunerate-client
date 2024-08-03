@@ -56,7 +56,7 @@ export default function Aside(){
           <li className="nav-item">
             <Link to="/enrollment" className="nav-link">
               <Icon name='money bill alternate outline' />
-              <p>Nominas</p>
+              <p>Liquidación de Sueldo</p>
             </Link>
           </li>
 

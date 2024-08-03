@@ -6,29 +6,29 @@ import LayoutAuth from '../Presentation/layouts/LayoutAuth';
 import Login from '../Presentation/Views/Auth/Login/Login';
 import Register from '../Presentation/Views/Auth/Register/Register';
 
-//internal categories
-import InternalCategories from '../Presentation/Views/InternalCategories/List';
-import CreateInternalCategories from '../Presentation/Views/InternalCategories/create';
+//remuneration book
+import RemunerationBook from '../Presentation/Views/RemunerationBook/RemunerationBookList';
+import CreateRemunerationBook from '../Presentation/Views/RemunerationBook/create';
 
 //types concepts
 import TypesConcepts from '../Presentation/Views/TypesConcepts/List';
 import CreateTypesConcepts from '../Presentation/Views/TypesConcepts/create';
 
+//internal categories
+import InternalCategories from '../Presentation/Views/InternalCategories/List';
+import CreateInternalCategories from '../Presentation/Views/InternalCategories/create';
+
 //institutions
 import Institutions from '../Presentation/Views/Institutions/List';
 import CreateInstitutions from '../Presentation/Views/Institutions/create';
-
-//lists
-import Lists from '../Presentation/Views/Lists/List';
-import CreateList from '../Presentation/Views/Lists/create';
 
 //companies
 import Companies from '../Presentation/Views/Companies/List';
 import CreateCompany from '../Presentation/Views/Companies/Create';
 
-//remuneration book
-import RemunerationBook from '../Presentation/Views/RemunerationBook/RemunerationBookList';
-import CreateRemunerationBook from '../Presentation/Views/RemunerationBook/create';
+//lists
+import Lists from '../Presentation/Views/Lists/List';
+import CreateList from '../Presentation/Views/Lists/create';
 
 //concepts
 import Concepts from '../Presentation/Views/Concepts/ConceptsList';

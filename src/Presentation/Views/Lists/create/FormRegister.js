@@ -75,12 +75,16 @@ export default function FormRegister() {
                                         <Form.Input  
                                             id="value_a"
                                             name="value_a" 
-                                            type="input" 
-                                            step="any"
+                                            type="number" 
+                                            step="0.01"
                                             placeholder="INGRESAR VALOR A DE LA LISTA" 
                                             value={formik.values.value_a}
-                                            onChange={formik.handleChange}
-                                            error={formik.errors.value_a}
+                                            onChange={e => formik.setFieldValue('value_a', e.target.value)}
+                                            onBlur={formik.handleBlur}
+                                            error={formik.touched.value_a && formik.errors.value_a ? {
+                                                content: formik.errors.value_a,
+                                                pointing: 'above',
+                                            } : null}
                                         />
                                     </div>
 
@@ -89,12 +93,16 @@ export default function FormRegister() {
                                         <Form.Input  
                                             id="value_b"
                                             name="value_b" 
-                                            type="input" 
-                                            step="any"
+                                            type="number"
+                                            step="0.01"
                                             placeholder="INGRESAR VALOR B DE LA LISTA" 
                                             value={formik.values.value_b}
-                                            onChange={formik.handleChange}
-                                            error={formik.errors.value_b}
+                                            onChange={e => formik.setFieldValue('value_b', e.target.value)}
+                                            onBlur={formik.handleBlur}
+                                            error={formik.touched.value_b && formik.errors.value_b ? {
+                                                content: formik.errors.value_b,
+                                                pointing: 'above',
+                                            } : null}
                                         />
                                     </div>
 
@@ -103,12 +111,16 @@ export default function FormRegister() {
                                         <Form.Input  
                                             id="value_c"
                                             name="value_c" 
-                                            type="input" 
-                                            step="any"
+                                            type="number"
+                                            step="0.01"
                                             placeholder="INGRESAR VALOR C DE LA LISTA" 
                                             value={formik.values.value_c}
-                                            onChange={formik.handleChange}
-                                            error={formik.errors.value_c}
+                                            onChange={e => formik.setFieldValue('value_c', e.target.value)}
+                                            onBlur={formik.handleBlur}
+                                            error={formik.touched.value_c && formik.errors.value_c ? {
+                                                content: formik.errors.value_c,
+                                                pointing: 'above',
+                                            } : null}
                                         />
                                     </div>
                                 </Segment>
