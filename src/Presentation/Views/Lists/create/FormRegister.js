@@ -28,11 +28,11 @@ export default function FormRegister() {
                                         <Form.Select
                                             id="sys_lists_id"
                                             name="sys_lists_id"
-                                            placeholder='Seleccione una LISTA'
+                                            placeholder="Seleccione una LISTA"
                                             options={listsOptions}
                                             onChange={handleListChange}
                                             value={formik.values.sys_lists_id}
-                                            error={formik.errors.sys_lists_id}
+                                            error={formik.errors.sys_lists_id ? { content: formik.errors.sys_lists_id, pointing: 'above' } : null}
                                         />
                                     </div>
 
@@ -79,7 +79,7 @@ export default function FormRegister() {
                                             step="0.01"
                                             placeholder="INGRESAR VALOR A DE LA LISTA" 
                                             value={formik.values.value_a}
-                                            onChange={e => formik.setFieldValue('value_a', e.target.value)}
+                                            onChange={e => formik.setFieldValue('value_a', parseFloat(e.target.value))}
                                             onBlur={formik.handleBlur}
                                             error={formik.touched.value_a && formik.errors.value_a ? {
                                                 content: formik.errors.value_a,

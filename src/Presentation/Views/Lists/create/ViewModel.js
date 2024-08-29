@@ -5,12 +5,12 @@ import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ApiRemunerate } from '../../../../Store/utils/ApiRemunerate';
 
-const useCreateInstitucionViewModel = () => { 
+const useCreateListViewModel = () => { 
     const navigate = useNavigate();
     const { id } = useParams(); // Para obtener el ID de la URL
     const profile = JSON.parse(localStorage.getItem(('my_profile')));
     const [initialValues, setInitialValues] = useState({ 
-        sys_lists_id: 0, 
+        sys_lists_id: null, 
         item: '', 
         name: '', 
         value_a: 0, 
@@ -58,8 +58,8 @@ const useCreateInstitucionViewModel = () => {
     }, [id]);
 
     const handleListChange = (e, { value }) => {
-        setSelectedLists(value);
         formik.setFieldValue('sys_lists_id', value);
+        setSelectedLists(value);
     };
 
     // Define el esquema de validación
@@ -100,7 +100,6 @@ const useCreateInstitucionViewModel = () => {
         onSubmit: async (formData) => {
             try {
                 if (id) {
-                    console.log(formData)
                     // Actualizar Institucion existente
                     ApiRemunerate.put(`/lists/update/${id}`, formData)
                     .then(response => {
@@ -139,4 +138,4 @@ const useCreateInstitucionViewModel = () => {
     }
 }
 
-export default useCreateInstitucionViewModel;
+export default useCreateListViewModel;

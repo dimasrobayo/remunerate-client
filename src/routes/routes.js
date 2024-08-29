@@ -38,6 +38,14 @@ import CreateConcepts from '../Presentation/Views/Concepts/create';
 import Employees from '../Presentation/Views/Employees/List';
 import CreateEmployees from '../Presentation/Views/Employees/Create';
 
+//contracts
+import Contracts from '../Presentation/Views/Contracts/List';
+import CreateContracts from '../Presentation/Views/Contracts/Create';
+
+//PayrollTemplate
+import PayrollTemplate from '../Presentation/Views/PayrollTemplate/List'
+import CreatePayrollTemplate from '../Presentation/Views/PayrollTemplate/Create';
+
 import Home from '../Presentation/Views/Home';
 import Error404 from '../Presentation/Views/error404';
 
@@ -202,6 +210,42 @@ const routes = [
         path: "/employees/update/:id",
         layout: LayoutBasic,
         component: CreateEmployees,
+        exact: true,
+    },
+    {
+        path: "/contracts/:id",
+        layout: LayoutBasic,
+        component: Contracts,
+        exact: true,
+    },
+    {
+        path: "/contracts/create/:id",
+        layout: LayoutBasic,
+        component: CreateContracts,
+        exact: true,
+    },
+    {
+        path: "/contracts/update/:id",
+        layout: LayoutBasic,
+        component: CreateContracts,
+        exact: true,
+    },
+    {
+        path: "/payrolltemplate/:id",
+        layout: LayoutBasic,
+        component: PayrollTemplate,
+        exact: true,
+    },
+    {
+        path: "/payrolltemplate/create/:userId",
+        layout: LayoutBasic,
+        component: CreatePayrollTemplate,
+        exact: true,
+    },
+    {
+        path: "/payrolltemplate/update/:userId/:conceptId",
+        layout: LayoutBasic,
+        component: CreatePayrollTemplate,
         exact: true,
     },
     {

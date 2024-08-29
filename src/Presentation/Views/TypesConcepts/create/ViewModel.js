@@ -14,13 +14,13 @@ const useTypeConceptViewModel = () => {
     useEffect(() => {
         if (id) {
             ApiRemunerate.get(`/typesconcepts/typesconceptsbyid/${id}`)
-                .then(response => {
-                    const { data } = response.data;
-                    setInitialValues({ name: data.name });
-                })
-                .catch(error => {
-                    toast.error('Error al cargar los datos de los tipos de conceptos');
-                });
+            .then(response => {
+                const { data } = response.data;
+                setInitialValues({ name: data.name });
+            })
+            .catch(error => {
+                toast.error('Error al cargar los datos de los tipos de conceptos');
+            });
         }
     }, [id]);
 

@@ -39,6 +39,7 @@ const useCreateInstitucionViewModel = () => {
                     toast.error('Error al cargar los datos de los tipos de conceptos');
                 });
         }
+        
         const fetchInstitutionTypes = async () => {
             try {
                 const response = await ApiRemunerate.get('/institutionstypes');

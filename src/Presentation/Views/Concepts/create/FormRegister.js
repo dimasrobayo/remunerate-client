@@ -22,6 +22,26 @@ export default function FormRegister() {
             <Form className="form" onSubmit={formik.handleSubmit}>
                 <div className="card-body row">
                     <div className="col-md-12">
+                        <Form.Group>
+                            <Form.Checkbox
+                                id="status"
+                                name="status"
+                                label="HABILITADO"
+                                checked={formik.values.status === 1}
+                                onChange={(e, { checked }) => formik.setFieldValue('status', checked ? 1 : 0)}
+                                error={formik.errors.status ? { content: formik.errors.status, pointing: 'above' } : null}
+                            />
+
+                            <Form.Checkbox
+                                id="value_contract"
+                                name="value_contract"
+                                label="VALOR DEL CONTRATO"
+                                checked={formik.values.value_contract === 1}
+                                onChange={(e, { checked }) => formik.setFieldValue('value_contract', checked ? 1 : 0)}
+                                error={formik.errors.value_contract ? { content: formik.errors.value_contract, pointing: 'above' } : null}
+                            />
+                        </Form.Group>
+
                         <div className="form-group">
                             <Form.Input  
                                 id="name"
@@ -32,6 +52,17 @@ export default function FormRegister() {
                                 value={formik.values.name}
                                 onChange={formik.handleChange}
                                 error={formik.errors.name}
+                            />
+
+                            <Form.Input  
+                                id="variable_unique"
+                                name="variable_unique" 
+                                label="VARIABLE ÚNICA"
+                                type="input" 
+                                placeholder="INGRESAR VARIABLES UNICAS" 
+                                value={formik.values.variable_unique}
+                                onChange={formik.handleChange}
+                                error={formik.errors.variable_unique}
                             />
 
                             <Form.Select 
@@ -74,16 +105,16 @@ export default function FormRegister() {
                             />
 
                             <Form.Select 
-                                id="sys_values_lists_id	" 
-                                name="sys_values_lists_id	" 
+                                id="sys_values_lists_id" 
+                                name="sys_values_lists_id" 
                                 label="CATEGORIA INE" 
                                 placeholder="SELECCIONAR CATEGORIA" 
                                 options={CategoriesINE} 
                                 onChange={(e, { name, value }) => {
                                     formik.setFieldValue(name, value);
                                 }}
-                                value={formik.values.sys_values_lists_id	}
-                                error={formik.errors.sys_values_lists_id	}
+                                value={formik.values.sys_values_lists_id}
+                                error={formik.errors.sys_values_lists_id}
                             />
 
                             <Form.Input  
@@ -97,13 +128,14 @@ export default function FormRegister() {
                                 error={formik.errors.comportamiento}
                             />
 
-                            <Form.Checkbox
-                                id="status"
-                                name="status"
-                                label="HABILITADO"
-                                checked={formik.values.status === 1}
-                                onChange={(e, { checked }) => formik.setFieldValue('status', checked ? 1 : 0)}
-                                error={formik.errors.status ? { content: formik.errors.status, pointing: 'above' } : null}
+                            <Form.TextArea 
+                                id='formula'
+                                name='formula'
+                                label='FORMULA DEL CONCEPTO'
+                                placeholder='INGRESAR UNA FORMULA PARA PROGRAMAR'
+                                value={formik.values.formula}
+                                onChange={formik.handleChange}
+                                error={formik.errors.formula}
                             />
 
                             <Grid columns={2}>

@@ -4,11 +4,9 @@ import { useFormik } from 'formik'
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ApiRemunerate } from '../../../../Store/utils/ApiRemunerate';
-import { useDispatch } from 'react-redux';
 import { size } from 'lodash';
 
 const useCreateInternalCategoryViewModel = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [getListType, setGetListType] = useState([]);
     const [getInternalCategores, setGetInternalCategories] = useState([]);
@@ -20,9 +18,13 @@ const useCreateInternalCategoryViewModel = () => {
         sys_types_concepts_id: '',
         sys_internal_categories_id: '',
         sys_libro_remuneraciones_electrico_id: '',
+        sys_values_lists_id: '',
         name: '', 
+        variable_unique: '',
         status: 0,
+        value_contract: 0,
         comportamiento: '',
+        formula: '',
         attributes: {
             se_rebaja_por_dias_no_trabajados: 0,
             suma_base_ias: 0,
@@ -52,9 +54,13 @@ const useCreateInternalCategoryViewModel = () => {
                         sys_types_concepts_id: data.sys_types_concepts_id,
                         sys_internal_categories_id: data.sys_internal_categories_id,
                         sys_libro_remuneraciones_electrico_id: data.sys_libro_remuneraciones_electrico_id,
+                        sys_values_lists_id: data.sys_values_lists_id,
                         name: data.name, 
+                        variable_unique: data.variable_unique,
                         status: data.status,
+                        value_contract: data.value_contract,
                         comportamiento: data.comportamiento,
+                        formula: data.formula,
                         attributes: {
                             se_rebaja_por_dias_no_trabajados: data.attributes.se_rebaja_por_dias_no_trabajados,
                             suma_base_ias: data.attributes.suma_base_ias,
@@ -157,11 +163,11 @@ const useCreateInternalCategoryViewModel = () => {
                 const { data } = response.data;
                 console.log(data);
                 if (data) {
-                    const categoriesINEArray = data.values.map((type, index) => {
+                    const categoriesINEArray = data.values.map((category, index) => {
                         return {
-                            key: type.id || index,
-                            value: type.id,
-                            text: type.name
+                            key: category.id || index,
+                            value: category.id,
+                            text: category.name
                         };
                     });
                     setGetListCategoriesINE(categoriesINEArray);
@@ -241,18 +247,18 @@ const useCreateInternalCategoryViewModel = () => {
                     // Actualizar categoría interna existente
                     ApiRemunerate.put(`/concepts/update/${id}`, formData)
                         .then(response => {
-                            toast.success('LRE actualizada con éxito');
+                            toast.success('CONCEPTO actualizada con éxito');
                             navigate("/concepts");
                         })
                         .catch((error) => {
                             console.log(error)
-                            toast.error('Error al actualizar LRE');
+                            toast.error('Error al actualizar CONCEPTO');
                         });
                 } else {
                     ApiRemunerate.post(`/concepts/create`, formData)
                     .then(response => {
                         if(response){
-                            toast.success('LRE registrado con exito');
+                            toast.success('CONCEPTO registrado con exito');
                             navigate("/concepts");
                         }
                     })

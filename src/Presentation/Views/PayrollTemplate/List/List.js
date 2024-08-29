@@ -1,36 +1,39 @@
 import React from 'react';
 import { map, size } from 'lodash';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Title from '../../../components/Title/Title';
-import useEmployeesViewModel from './ViewModel';
+import PayrollTemplateViewModel from './ViewModel';
 import { Icon, Table, Dropdown, Pagination, FormField, Input, FormGroup, Form, Divider } from 'semantic-ui-react';
 
 /**
  * Componente funcional que muestra y gestiona las categorías internas con paginación.
  */
-export default function Employees() {
+export default function List() {
+    const { id } = useParams(); // Para obtener el ID de la URL
+
     // Extraer datos y funciones del ViewModel personalizado
     const { 
         profile,
         pageSize,
         searchTerm, 
         currentPage,
-        filteredEmployees,
-        paginatedEmployees,
+        plantillaOwner,
+        filteredResults,
+        paginatedResults,
         setSearchTerm,
         setCurrentPage,
-        deletedEmployees
-    } = useEmployeesViewModel();
+        deletedConcepts
+    } = PayrollTemplateViewModel();
 
     return (
         <div className="content-wrapper">
             <div className="content-header">
                 {/* Título del componente */}
                 <Title
-                    title='EMPLEADOS'
-                    component='HOME '
-                    position='/ EMPLEADOS'
-                    path='/'
+                    title={`PLANTILLA`}
+                    component='HOME / EMPLEADOS '
+                    position='/ PLANTILLA'
+                    path='/employees'
                 />
             </div>
 
@@ -41,22 +44,24 @@ export default function Employees() {
                             <div className="card">
                                 <div className="card-header">
                                     {/* Encabezado de la tarjeta */}
-                                    <h3 className="card-title">Listado de Empleados</h3>
+                                    <h3 className="card-title">{plantillaOwner}</h3>
                                     {/* Botones de acción */}
                                     <div className="btn-group option-general">
                                         {/* Botón para añadir nueva compania */}
-                                        <Link 
-                                            type="button" 
-                                            className="btn-general btn btn-success" 
-                                            to="/employees/create" 
-                                            placeholder="Agregando un nuevo registro"
-                                            style={{backgroundColor: profile.myColor, borderColor: profile.myColor}}
-                                        >
-                                            <Icon className="fas fa-plus" />
-                                        </Link>
+                                            <Link 
+                                                type="button" 
+                                                className="btn-general btn btn-success" 
+                                                to={{
+                                                    pathname: `/PayrollTemplate/create/${id}`
+                                                }}
+                                                placeholder="Agregando un nuevo registro"
+                                                style={{backgroundColor: profile.myColor, borderColor: profile.myColor}}
+                                            >
+                                                <Icon className="fas fa-plus" />
+                                            </Link>
 
                                         {/* Botón para cerrar */}
-                                        <Link type="button" className="btn-general btn btn-secondary" to="/">
+                                        <Link type="button" className="btn-general btn btn-secondary" to="/employees">
                                             <Icon className="fas fa-window-close" />
                                         </Link>
                                     </div>
@@ -70,7 +75,7 @@ export default function Employees() {
                                                 <FormField
                                                     id='search-input'
                                                     control={Input}
-                                                    label='BUSQUEDA EMPLEADO'
+                                                    label='BUSQUEDA CONCEPTO'
                                                     icon='search'
                                                     iconPosition='left'
                                                     placeholder="BUSCAR..." 
@@ -85,62 +90,71 @@ export default function Employees() {
                                         <Table.Header>
                                             {/* Encabezados de la tabla */}
                                             <Table.Row>
-                                                <Table.HeaderCell>RUT</Table.HeaderCell>
-                                                <Table.HeaderCell>SITUACION</Table.HeaderCell>
-                                                <Table.HeaderCell>NOMBRE</Table.HeaderCell>
-                                                <Table.HeaderCell>EMPRESA</Table.HeaderCell>
-                                                <Table.HeaderCell>CONTRATO</Table.HeaderCell>
-                                                <Table.HeaderCell>ACCIONES</Table.HeaderCell>
+                                                <Table.HeaderCell style={{ textAlign: 'center' }}>Nro.</Table.HeaderCell>
+                                                <Table.HeaderCell style={{ textAlign: 'center' }}>NOMBRE</Table.HeaderCell>
+                                                <Table.HeaderCell style={{ textAlign: 'center' }}>CATEGORIA</Table.HeaderCell>
+                                                <Table.HeaderCell style={{ textAlign: 'center' }}>VALOR</Table.HeaderCell>
+                                                <Table.HeaderCell style={{ textAlign: 'center' }}>FORMULA</Table.HeaderCell>
+                                                <Table.HeaderCell style={{ textAlign: 'center' }}>ESTADO</Table.HeaderCell>
+                                                <Table.HeaderCell>ACIONES</Table.HeaderCell>
                                             </Table.Row>
                                         </Table.Header>
 
                                         <Table.Body>
                                             {/* Renderizar las filas de la tabla */}
-                                            {size(paginatedEmployees) > 0 
-                                                ? map(paginatedEmployees, (employee) => (
-                                                    <Table.Row key={employee.id}>
+                                            {size(paginatedResults) > 0 
+                                                ? map(paginatedResults, (concept) => (
+                                                    <Table.Row key={concept.id}>
                                                         {/* Celdas de cada fila */}
-                                                        <Table.Cell>{employee.document_number}</Table.Cell>
-                                                        <Table.Cell>{employee.status === 1 ? 'ACTIVO' : 'INACTIVO'}</Table.Cell>
+                                                        <Table.Cell style={{ textAlign: 'center' }}>
+                                                            { concept.id }
+                                                        </Table.Cell>
+
                                                         <Table.Cell>
-                                                            <Link to={{pathname:`/employees/update/${employee.id}`}}>
-                                                                {employee.name + ' ' + employee.lastname + ' ' + employee.mother_lastname}
+                                                            <Link to={{
+                                                                pathname:`/payrolltemplate/update/${concept.user_personal_info_id}/${concept.sys_concept_id}`
+                                                            }}
+                                                            >
+                                                                { concept.sysConcept.remunerationBook.code + ' - ' + concept.sysConcept.name }
                                                             </Link>
                                                         </Table.Cell>
-                                                        <Table.Cell>{employee.paymentMethod?.company?.business_name}</Table.Cell>
-                                                        <Table.Cell style={{ textAlign: 'center' }}>1</Table.Cell>
+                                                        
+                                                        <Table.Cell style={{ textAlign: 'center' }}>
+                                                            { 
+                                                                concept.sysConcept.remunerationBook.typeLRE.description.toUpperCase()
+                                                            }
+                                                        </Table.Cell>
+                                                        
+                                                        <Table.Cell style={{ textAlign: 'center' }}>{ concept.amount }</Table.Cell>
+
+                                                        <Table.Cell style={{ textAlign: 'center' }}>
+                                                            {concept.sysConcept.formula}
+                                                        </Table.Cell>
+
+                                                        <Table.Cell style={{ textAlign: 'center' }}>
+                                                            {concept.sysConcept.status === 1 ? 'ACTIVO' : 'INACTIVO'}
+                                                        </Table.Cell>
+                                                        
 
                                                         <Table.Cell>
                                                             {/* Menú desplegable de acciones */}
                                                             <Dropdown text='Acciones'>
                                                                 <Dropdown.Menu>
                                                                     {/* Enlace para editar */}
-                                                                    <Link to={{
-                                                                        pathname:`/employees/update/${employee.id}`}} 
+                                                                    <Link 
+                                                                        to={{
+                                                                            pathname:`/payrolltemplate/update/${concept.user_personal_info_id}/${concept.sys_concept_id}`
+                                                                        }} 
                                                                         className="dropdown-item"
                                                                     >
                                                                         <Icon name="pencil" /> Editar
-                                                                    </Link>
-                                                                    
-                                                                    <Link to={{
-                                                                        pathname:`/contracts/${employee.id}`}} 
-                                                                        className="dropdown-item"
-                                                                    >
-                                                                        <Icon name="bookmark" /> Contrato
-                                                                    </Link>
-
-                                                                    <Link to={{
-                                                                        pathname:`/PayrollTemplate/${employee.id}`}} 
-                                                                        className="dropdown-item"
-                                                                    >
-                                                                        <Icon name="newspaper outline" /> Plantilla Personal
                                                                     </Link>
 
                                                                     <Divider />
                                                                     
                                                                     {/* Enlace para borrar */}
                                                                     <Link to=""
-                                                                        onClick={(event) => deletedEmployees(event, employee.id)}
+                                                                        onClick={(event) => deletedConcepts(event, concept.user_personal_info_id)}
                                                                         className="dropdown-item"
                                                                     >
                                                                         <Icon name="trash" /> Borrar
@@ -165,7 +179,7 @@ export default function Employees() {
                                     <Pagination
                                         activePage={currentPage}
                                         onPageChange={(e, { activePage }) => setCurrentPage(activePage)}
-                                        totalPages={Math.ceil(filteredEmployees.length / pageSize)}
+                                        totalPages={Math.ceil(filteredResults.length / pageSize)}
                                     />
                                 </div>
                             </div>
