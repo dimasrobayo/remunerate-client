@@ -21,6 +21,7 @@ export default function ConceptsList() {
         setCurrentPage, 
         deleteConcepts 
     } = useConceptsViewModel();
+    console.log(paginatedConcepts);
 
     return (
         <div className="content-wrapper">

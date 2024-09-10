@@ -43,8 +43,11 @@ import Contracts from '../Presentation/Views/Contracts/List';
 import CreateContracts from '../Presentation/Views/Contracts/Create';
 
 //PayrollTemplate
-import PayrollTemplate from '../Presentation/Views/PayrollTemplate/List'
+import PayrollTemplate from '../Presentation/Views/PayrollTemplate/List';
 import CreatePayrollTemplate from '../Presentation/Views/PayrollTemplate/Create';
+
+//Variables
+import Variables from '../Presentation/Views/Variables/Create';
 
 import Home from '../Presentation/Views/Home';
 import Error404 from '../Presentation/Views/error404';
@@ -246,6 +249,12 @@ const routes = [
         path: "/payrolltemplate/update/:userId/:conceptId",
         layout: LayoutBasic,
         component: CreatePayrollTemplate,
+        exact: true,
+    },
+    {
+        path: "/variables",
+        layout: LayoutBasic,
+        component: Variables,
         exact: true,
     },
     {

@@ -24,8 +24,6 @@ export default function Contracts() {
         deletedContracts
     } = ContractsViewModel();
 
-    console.log(paginatedContracts)
-
     return (
         <div className="content-wrapper">
             <div className="content-header">
@@ -130,7 +128,9 @@ export default function Contracts() {
                                                             })}
                                                         </Table.Cell>
                                                         
-                                                        <Table.Cell style={{ textAlign: 'center' }}>---</Table.Cell>
+                                                        <Table.Cell style={{ textAlign: 'center' }}>
+                                                            { contract.userPersonalInfo.paymentMethod.company.business_name }
+                                                        </Table.Cell>
                                                         
                                                         <Table.Cell style={{ textAlign: 'center' }}>{ contract.tipo_contrato }</Table.Cell>
 

@@ -3,6 +3,7 @@ import { map, size } from 'lodash';
 import { Link, useParams } from 'react-router-dom';
 import Title from '../../../components/Title/Title';
 import PayrollTemplateViewModel from './ViewModel';
+import { formatCurrency } from '../../../../utils/global'
 import { Icon, Table, Dropdown, Pagination, FormField, Input, FormGroup, Form, Divider } from 'semantic-ui-react';
 
 /**
@@ -58,6 +59,16 @@ export default function List() {
                                                 style={{backgroundColor: profile.myColor, borderColor: profile.myColor}}
                                             >
                                                 <Icon className="fas fa-plus" />
+                                            </Link>
+
+                                            <Link 
+                                                type="button" 
+                                                className="btn-general btn btn-success" 
+                                                to=''
+                                                placeholder="Agregando un nuevo registro"
+                                                style={{backgroundColor: profile.myColor, borderColor: profile.myColor}}
+                                            >
+                                                <Icon className="calculator" />
                                             </Link>
 
                                         {/* Botón para cerrar */}
@@ -125,10 +136,19 @@ export default function List() {
                                                             }
                                                         </Table.Cell>
                                                         
-                                                        <Table.Cell style={{ textAlign: 'center' }}>{ concept.amount }</Table.Cell>
+                                                        <Table.Cell style={{ textAlign: 'center' }}>{ formatCurrency(concept.amount) }</Table.Cell>
 
                                                         <Table.Cell style={{ textAlign: 'center' }}>
-                                                            {concept.sysConcept.formula}
+                                                            {
+                                                                concept.sysConcept.formula ?
+                                                                <Icon 
+                                                                    name="check circle outline" 
+                                                                    color="green" 
+                                                                    title={concept.sysConcept.formula} 
+                                                                    size="large"
+                                                                /> : ''
+
+                                                            }
                                                         </Table.Cell>
 
                                                         <Table.Cell style={{ textAlign: 'center' }}>

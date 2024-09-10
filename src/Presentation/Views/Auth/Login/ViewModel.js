@@ -34,7 +34,7 @@ const LoginViewModel = () => {
       try {
         const response = await ApiRemunerate.post('users/login', formData);
         const { success, data } = response.data;
-        console.log(data);
+        console.log(response)
         if(success){
           dispatch(myProfileGlobalState(data));
           setProfile(data);
@@ -43,6 +43,7 @@ const LoginViewModel = () => {
           toast.success(data.gender === 'masculino' ? `Bienvenido ${data.name + ' ' +  data.lastname}` : `Bienvenida ${data.name + ' ' +  data.lastname}` );
         }
       } catch (error) {
+        console.log(error)
         const { message } = error.response.data;
         setErrorMessage(message);
       }

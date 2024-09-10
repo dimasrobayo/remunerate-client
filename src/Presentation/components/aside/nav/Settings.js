@@ -27,9 +27,16 @@ export default function Settings() {
         </Link>
         <ul className="nav nav-treeview">
             <li className="nav-item">
+                <Link to="/variables" className="nav-link">
+                <Icon className='far fa-circle' />
+                    <p>Variables Generales</p>
+                </Link>
+            </li>
+
+            <li className="nav-item">
                 <Link to="/remunerationbook" className="nav-link">
                 <Icon className='far fa-circle' />
-                    <p>LRE</p>
+                    <p>BASE LRE</p>
                 </Link>
             </li>
 
@@ -72,20 +79,6 @@ export default function Settings() {
                 <Link to="/concepts" className="nav-link">
                 <Icon className='far fa-circle' />
                     <p>Conceptos</p>
-                </Link>
-            </li>
-
-            <li className="nav-item">
-                <Link to="/subjets" className="nav-link">
-                <Icon className='far fa-circle' />
-                    <p>Funciones</p>
-                </Link>
-            </li>
-
-            <li className="nav-item">
-                <Link to="/subjets" className="nav-link">
-                <Icon className='far fa-circle' />
-                    <p>Variables</p>
                 </Link>
             </li>
         </ul>

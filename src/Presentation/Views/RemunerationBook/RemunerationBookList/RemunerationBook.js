@@ -27,9 +27,9 @@ export default function RemunerationBook() {
             <div className="content-header">
                 {/* Título del componente */}
                 <Title
-                    title='LIBRO DE REMUNERACIONES'
+                    title='BASE LRE'
                     component='HOME '
-                    position='/ LIBRO DE REMUNERACIONES'
+                    position='/ BASE LRE'
                     path='/'
                 />
             </div>
