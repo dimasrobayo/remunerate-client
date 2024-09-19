@@ -161,7 +161,7 @@ const useCreateInternalCategoryViewModel = () => {
             ApiRemunerate.get(`/lists/listsvaluesbyid/10`)
             .then(response => {
                 const { data } = response.data;
-                console.log(data);
+
                 if (data) {
                     const categoriesINEArray = data.values.map((category, index) => {
                         return {

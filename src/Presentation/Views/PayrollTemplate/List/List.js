@@ -128,6 +128,12 @@ export default function List() {
                                                             >
                                                                 { concept.sysConcept.remunerationBook.code + ' - ' + concept.sysConcept.name }
                                                             </Link>
+
+                                                            { 
+                                                                concept.sysConcept.value_contract === 1
+                                                                && 
+                                                                <Icon style={{ marginLeft: '10px' }} name='info circle' color='orange' title='viene del contrato' />
+                                                            }
                                                         </Table.Cell>
                                                         
                                                         <Table.Cell style={{ textAlign: 'center' }}>

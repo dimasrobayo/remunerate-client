@@ -123,7 +123,7 @@ export default function FormRegister() {
                                 label="COMPORTAMIENTO"
                                 type="input"
                                 placeholder="INGRESAR COMPORTAMIENTO" 
-                                value={formik.values.comportamiento}
+                                value={formik.values.comportamiento || ""}
                                 onChange={formik.handleChange}
                                 error={formik.errors.comportamiento}
                             />
@@ -133,7 +133,7 @@ export default function FormRegister() {
                                 name='formula'
                                 label='FORMULA DEL CONCEPTO'
                                 placeholder='INGRESAR UNA FORMULA PARA PROGRAMAR'
-                                value={formik.values.formula}
+                                value={formik.values.formula || ""}
                                 onChange={formik.handleChange}
                                 error={formik.errors.formula}
                             />
